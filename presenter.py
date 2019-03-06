@@ -12,7 +12,7 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QIcon, QPixmap, QPalette
 from PyQt5.QtCore import *
 from guiModel import guiModel
-from testWindow import *
+#from testWindow import *
 from view import *
 
 
