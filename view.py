@@ -6,18 +6,22 @@ from PyQt5.QtCore import *
 
 class selectWindow(QWidget):
 
+    ## Signal definitions
     yesClicked = pyqtSignal()
     noClicked = pyqtSignal()
-    #testClicked = pyqtSignal()
-
+    ##
+    
     def __init__(self):
-
+        
+        ##Initializes QWidget class
         super().__init__()
+        ##
 
         self.initUI()
 
     def initUI(self):
 
+        ##Appearance of UI
         self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("Selection Window")
 
@@ -32,12 +36,19 @@ class selectWindow(QWidget):
         box = QVBoxLayout()
         box.addWidget(self.groupBox)
         self.setLayout(box)
+        ##
 
+        ## Signals yesButtonClicked that yes button in window is pressed
         self.pyButtonYes.clicked.connect(self.yesButtonClicked)
+        ##
+
+        ## Signal noButtonClicked that no button in window is pressed
         self.pyButtonNo.clicked.connect(self.noButtonClicked)
+        ##
 
         self.show()
 
+    ## Emits signal and closes window
     def yesButtonClicked(self):
         self.yesClicked.emit()
         self.close()
@@ -45,7 +56,9 @@ class selectWindow(QWidget):
     def noButtonClicked(self):
         self.noClicked.emit()
         self.close()
+    ##
     
+    ## Defines the grid of the UI and inserts buttons onto coordinates
     def createGrid(self):
 
         self.groupBox = QGroupBox()
@@ -67,18 +80,24 @@ class selectWindow(QWidget):
             rows += 1
 
         self.groupBox.setLayout(layout)
+    ##
 
 class MainWindowNoSpeed(QWidget): 
 
+    ## Signal definition
     buttonClicked = pyqtSignal()
+    ##
 
     def __init__(self):
+        ## Initializes QWidget class
         super().__init__()
+        ##
 
         self.initUI()
 
     def initUI(self):
         
+        ## Appearance of UI
         self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("No Speed")
         p = self.palette()
@@ -120,8 +139,9 @@ class MainWindowNoSpeed(QWidget):
         self.batteryLevel.setStyleSheet('color: white')
         self.batteryTemperature.setStyleSheet('color: white')
         self.motorTorque.setStyleSheet('color: white')
-        
+        ##
 
+    ## Widget behavior based on passed values
     def processValues(self, values):
         if int(values[0]) > 80: 
             self.motorTemperature.setPixmap(self.motorTemperatureIconRed)
@@ -141,11 +161,15 @@ class MainWindowNoSpeed(QWidget):
             self.shutdown.clear()
 
         self.changeText(values)
+    ##
     
+    ## For labels that require the showing of values, this method updates labels
     def changeText(self, values):
         self.batteryLevel.setText(values[2])
         self.motorTorque.setText(values[4])
+    ##
 
+    ## Defines the grid of the UI and inserts widgets onto coordinates
     def createGrid(self):
 
         self.groupBox = QGroupBox()
@@ -171,15 +195,20 @@ class MainWindowNoSpeed(QWidget):
             rows += 1
 
         self.groupBox.setLayout(layout)
+    ##
 
 class MainWindowSpeed(QWidget):
 
     def __init__(self):
+        ## Initialize QWidget class
         super().__init__()
+        ##
 
         self.initUI()
     
     def initUI(self):
+
+        ## Appearance of UI
         self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("With Speed")
         p = self.palette()
@@ -190,7 +219,6 @@ class MainWindowSpeed(QWidget):
 
         self.motorTemperature = QLabel("Motor Temperature", self)
         self.motorTemperature.setAlignment(Qt.AlignCenter)
-        #self.motorTemperature.move(50,50)
         self.motorTemperatureIconRed = QPixmap("icons/engineTempRed.jpg")
         self.motorTemperatureIconBlue = QPixmap("icons/engineTmepBlue.jpg")
         self.motorTemperatureIconGreen = QPixmap('icons/engineTempGreen.jpg')
@@ -199,7 +227,6 @@ class MainWindowSpeed(QWidget):
         self.speed.setMaximum(80)
         self.speed.setValue(50)
         self.speed.setTextVisible(False)
-        #self.speed.move(100,100)
 
         self.speedDisplay = QLabel("Speed", self)
         self.speedDisplay.setStyleSheet('color: white')
@@ -208,21 +235,17 @@ class MainWindowSpeed(QWidget):
 
         self.batteryLevel = QLabel("Battery Level", self)
         self.batteryLevel.setAlignment(Qt.AlignCenter)
-        #self.batteryLevel.move(150,150)
-
+        
         self.batteryTemperature = QLabel("Battery Temperature", self)
         self.batteryTemperature.setAlignment(Qt.AlignCenter)
-        #self.batteryTemperature.move(200,200)
         self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
         self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
         self.motorTorque = QLabel("Motor Torque", self)
         self.motorTorque.setAlignment(Qt.AlignCenter)
-        #self.motorTorque.move(250,250)
-
+        
         self.shutdown = QLabel("Shutdown", self)
         self.shutdown.setAlignment(Qt.AlignCenter)
-        #self.shutdown.move(300,300)
         self.shutdownIcon = QPixmap("icons/shutdown.jpeg")
 
         
@@ -232,7 +255,9 @@ class MainWindowSpeed(QWidget):
         box = QVBoxLayout()
         box.addWidget(self.groupBox)
         self.setLayout(box)
+        ##
     
+    ## Defines the grid of the UI and inserts widgets onto coordinates
     def createGrid(self):
 
         self.groupBox = QGroupBox()
@@ -262,7 +287,9 @@ class MainWindowSpeed(QWidget):
             rows += 1
 
         self.groupBox.setLayout(layout)
-        
+    ##
+    
+    ## Widget behavior based on passed values
     def processValues(self, values):
 
         if int(values[0]) > 80: 
@@ -283,9 +310,12 @@ class MainWindowSpeed(QWidget):
             self.shutdown.clear()
 
         self.changeText(values)
+    ##
     
+    ## For labels that require the showing of values, this method updates labels
     def changeText(self, values):
         self.batteryLevel.setText(values[2])
         self.motorTorque.setText(values[4])
         self.speed.setValue(int(values[1]))
         self.speedDisplay.setText(values[1])
+    ##
