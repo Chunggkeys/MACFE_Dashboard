@@ -66,12 +66,12 @@ class Presenter:
         self.updateValues(displayValues)
         
     def updateValues(self, displayValues):
-        self._guiModel.setMotorTemperature(float(self.values[0]))
-        self._guiModel.setSpeed(float(self.values[1]))
-        self._guiModel.setBatteryLevel(float(self.values[2]))
-        self._guiModel.setBatteryTemperature(float(self.values[3]))
-        self._guiModel.setMotorTorque(float(self.values[4]))
-        self._guiModel.setShutdown(float(self.values[5]))
+        # self._guiModel.setMotorTemperature(float(self.values[0]))
+        # self._guiModel.setSpeed(float(self.values[1]))
+        # self._guiModel.setBatteryLevel(float(self.values[2]))
+        # self._guiModel.setBatteryTemperature(float(self.values[3]))
+        # self._guiModel.setMotorTorque(float(self.values[4]))
+        # self._guiModel.setShutdown(float(self.values[5]))
         self.changeVal(displayValues)
 
     #def getRequest(self): ##Real values from CAN   
