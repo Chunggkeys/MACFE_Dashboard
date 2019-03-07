@@ -2,6 +2,7 @@ from presenter import Presenter
 from view import *
 from guiModel import guiModel
 from PyQt5 import QtWidgets
+from test import *
 import sys
 
 def main():

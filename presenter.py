@@ -12,7 +12,7 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QIcon, QPixmap, QPalette
 from PyQt5.QtCore import *
 from guiModel import guiModel
-#from testWindow import *
+from testWindow import *
 from view import *
 
 
@@ -28,14 +28,16 @@ class Presenter:
     
     def withSpeed(self):
         self._mainWindowSpeed.show()
-        self.test = Test()
+        self.test = Test(self._guiModel)
+        #self._guiModel.updateSignal.connect(self.getRequest)
         self.test.updateSignal.connect(self.getRequest)
         #self.testWindow = testWindow()
         #self.testWindow.testSignal.connect(self.getRequest)
     
     def withNoSpeed(self):
         self._mainWindowNoSpeed.show()
-        self.test = Test()
+        self.test = Test(self._guiModel)
+        #self._guiModel.updateSignal.connect(self.getRequest)
         self.test.updateSignal.connect(self.getRequest)
         #self.testWindow = testWindow()
         #self.testWindow.testSignal.connect(self.getRequest)

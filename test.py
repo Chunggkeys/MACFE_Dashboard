@@ -4,6 +4,7 @@
 from PyQt5.QtCore import *
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
+from guiModel import *
 import sys
 
 import csv
@@ -28,7 +29,8 @@ class Test(QThread):
 
 	updateSignal = pyqtSignal(list)
 
-	def __init__(self):
+	def __init__(self, guiModel):
+		self._guiModel = guiModel
 		super().__init__()
 		self.start()
 	
@@ -38,11 +40,17 @@ class Test(QThread):
 			spam = sys.stdin.readline()
 			values = spam.split(",")
 			motorTemperature = values[0]
+			self._guiModel.setMotorTemperature(motorTemperature)
 			speed = values[1]
+			self._guiModel.setSpeed(speed)
 			batteryLevel = values[2]
+			self._guiModel.setBatteryLevel(batteryLevel)
 			batteryTemperature = values[3]
+			self._guiModel.setBatteryTemperature(batteryTemperature)
 			motorTorque = values[4]
+			self._guiModel.setMotorTorque(motorTorque)
 			shutdown = values[5]
+			self._guiModel.setShutdown(shutdown)
 
 			self.updateSignal.emit(values)
 
