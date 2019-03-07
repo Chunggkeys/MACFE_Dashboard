@@ -14,6 +14,7 @@ class guiModel(QObject):
 		self.bLevel = bLevel; self.shutdown = shutdown
 		self.bTemp = bTemp; self.mTorque = mTorque
 
+	## Setters for car info
 	def setBatteryLevel(self, bLevel):
 		self.bLevel = bLevel
 		#self.listValues.append(self.bLevel)
@@ -38,7 +39,9 @@ class guiModel(QObject):
 		self.shutdown = shutdown
 		#self.listValues.append(self.shutdown)
 		#self.updateSignal.emit(self.listValues)
+	##
 
+	## getters for car info
 	def getMotorTemperature(self):
 		return str(self.mTemp)
 	
@@ -56,3 +59,4 @@ class guiModel(QObject):
 	
 	def getShutdown(self):
 		return self.shutdown
+	##
