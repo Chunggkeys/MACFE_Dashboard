@@ -17,43 +17,36 @@ from view import *
 
 class Presenter:
 
-    #update = pyqtSignal(tuple)
-
+    ## Initializes the presenter with instances of the GUI with/without speed indication, and model 
     def __init__(self, selectWindow, MainWindowNoSpeed, MainWindowSpeed, guiModel):
         self._selectWindow = selectWindow
         self._mainWindowSpeed = MainWindowSpeed
         self._guiModel = guiModel
         self._mainWindowNoSpeed = MainWindowNoSpeed 
     
+    ## Opens GUI with speed indicator window and initializes Test/CAN module
     def withSpeed(self):
         self._mainWindowSpeed.show()
         self.test = Test(self._guiModel)
-        #self._guiModel.updateSignal.connect(self.getRequest)
-        self.test.updateSignal.connect(self.getRequest)
-        #self.testWindow = testWindow()
-        #self.testWindow.testSignal.connect(self.getRequest)
-    
+
+        ## Accepts signal from Test module
+        self.test.updateSignal.connect(self.processValues)
+        #
+
+    ##
+       
+    ## Opens GUI without speed indicator window and initializes Test/CAN module
     def withNoSpeed(self):
         self._mainWindowNoSpeed.show()
         self.test = Test(self._guiModel)
-        #self._guiModel.updateSignal.connect(self.getRequest)
-        self.test.updateSignal.connect(self.getRequest)
-        #self.testWindow = testWindow()
-        #self.testWindow.testSignal.connect(self.getRequest)
-       
-    def changeVal(self,displayValues):
 
-        self._mainWindowNoSpeed.processValues(displayValues)
-        self._mainWindowSpeed.processValues(displayValues)
+        ## Accepts signal from Test module
+        self.test.updateSignal.connect(self.processValues)
+        ##
 
-    def getRequest(self, values): ##Tester Request
-        print("hi")
-        #self.test.updateSignal.connect(self.processValues)
-        
-        #self._guiModel.updateSignal.connect(self.processValues) 
-        # self.values = t.test()
-        self.processValues(values)
+    ##
     
+    ## Creates auxiliary list and passes that list to function that displays
     def processValues(self, values):
         self.values = values
 
@@ -63,15 +56,14 @@ class Presenter:
             displayValues.append(self.values[i])
             
         self.updateValues(displayValues)
-        
+    ##
+
+    ##  Changes values in respective GUI
     def updateValues(self, displayValues):
-        # self._guiModel.setMotorTemperature(float(self.values[0]))
-        # self._guiModel.setSpeed(float(self.values[1]))
-        # self._guiModel.setBatteryLevel(float(self.values[2]))
-        # self._guiModel.setBatteryTemperature(float(self.values[3]))
-        # self._guiModel.setMotorTorque(float(self.values[4]))
-        # self._guiModel.setShutdown(float(self.values[5]))
-        self.changeVal(displayValues)
+        
+        self._mainWindowNoSpeed.processValues(displayValues)
+        self._mainWindowSpeed.processValues(displayValues)
+    ##
 
     #def getRequest(self): ##Real values from CAN   
         ## read CAN values

@@ -16,8 +16,10 @@ def main():
     MWindowSpeed = MainWindowSpeed()
     p = Presenter(select, MWindowNoSpeed, MWindowSpeed, gModel)
 
+    ## Accepts signals from View module and opens respective GUIs
     select.yesClicked.connect(p.withSpeed)
     select.noClicked.connect(p.withNoSpeed)
+    ##
     
     sys.exit(app.exec_())
 
