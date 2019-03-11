@@ -121,25 +121,29 @@ class MainWindowNoSpeed(QWidget):
         self.batteryLevel.setStyleSheet("color: white")
         self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
-        self.batteryTemperature = QLabel("Battery Temperature", self)
+        self.batteryTemperature = QLabel("", self)
         self.batteryTemperature.setAlignment(Qt.AlignCenter)
         self.batteryTemperature.setStyleSheet("QLabel {background-color: green}")
         self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
         self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
-        self.motorTemperatureLeftFront = QLabel("Motor Temperature LR", self)
+        self.batteyTemperatureLabel = QLabel("Battery Temperature", self)
+        self.batteyTemperatureLabel.setAlignment(Qt.AlignCenter)
+        self.batteyTemperatureLabel.setStyleSheet("color: white")
+
+        self.motorTemperatureLeftFront = QLabel("LF Motor", self)
         self.motorTemperatureLeftFront.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green} ")
 
-        self.motorTemperatureRightFront = QLabel("Motor Temperature RF", self)
+        self.motorTemperatureRightFront = QLabel("RF Motor", self)
         self.motorTemperatureRightFront.setAlignment(Qt.AlignCenter)
         self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: green} ")
 
-        self.motorTemperatureLeftRear = QLabel("Motor Temperature LR", self)
+        self.motorTemperatureLeftRear = QLabel("LR Motor", self)
         self.motorTemperatureLeftRear.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: green} ")
 
-        self.motorTemperatureRightRear = QLabel("Motor Temperature RR", self)
+        self.motorTemperatureRightRear = QLabel("RR Motor", self)
         self.motorTemperatureRightRear.setAlignment(Qt.AlignCenter)
         self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green} ")
 
@@ -162,6 +166,10 @@ class MainWindowNoSpeed(QWidget):
         self.shutdown = QLabel("Shutdown",self)
         self.shutdown.setAlignment(Qt.AlignCenter)
         self.shutdownIcon = QPixmap('icons/shutdown.jpeg')
+
+        self.outputLog = QLabel("Output log", self)
+        self.outputLog.setAlignment(Qt.AlignCenter)
+        self.outputLog.setStyleSheet("QLabel {background-color: green}")
 
         self.createGrid()
 
@@ -213,6 +221,8 @@ class MainWindowNoSpeed(QWidget):
             while cols < 15:
                 if rows == 1 and cols == 1:
                     layout.addWidget(self.batteryTemperature, rows, cols,1,7)
+                elif rows == 0 and cols == 1:
+                    layout.addWidget(self.batteyTemperatureLabel,rows,cols,1,7)
                 elif rows == 3 and cols == 1:
                     layout.addWidget(self.batteryLevel,rows,cols,6,7)
                 elif rows == 10 and cols == 1:
@@ -233,6 +243,8 @@ class MainWindowNoSpeed(QWidget):
                     layout.addWidget(self.highVoltReady,rows,cols)
                 elif rows == 10 and cols == 14:
                     layout.addWidget(self.lowVoltReady,rows,cols)
+                elif rows == 12 and cols == 9:
+                    layout.addWidget(self.outputLog,rows,cols,2,6)
                 else:
                     layout.addWidget(QLabel("",self), rows, cols)
                 cols += 1
