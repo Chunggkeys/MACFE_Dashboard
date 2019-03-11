@@ -112,27 +112,34 @@ class MainWindowNoSpeed(QWidget):
         self.motorTemperatureIconBlue = QPixmap('icons/engineTempBlue.jpg')
         self.motorTemperatureIconGreen = QPixmap('icons/engineTempGreen.jpg')
 
+        self.speed = QLabel("Speed", self)
+        self.speed.setAlignment(Qt.AlignCenter)
+        self.speed.setStyleSheet("QLabel {background-color: green}")
+
         self.batteryLevel = QLabel("Battery Level", self)
         self.batteryLevel.setAlignment(Qt.AlignCenter)
+        self.batteryLevel.setStyleSheet("color: white")
+        self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
         self.batteryTemperature = QLabel("Battery Temperature", self)
         self.batteryTemperature.setAlignment(Qt.AlignCenter)
+        self.batteryTemperature.setStyleSheet("QLabel {background-color: green}")
         self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
         self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
-        self.motorTemperatureLeftFront = QLabel("Motor Torque LR", self)
+        self.motorTemperatureLeftFront = QLabel("Motor Temperature LR", self)
         self.motorTemperatureLeftFront.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green} ")
 
-        self.motorTemperatureRightFront = QLabel("Motor Torque RF", self)
+        self.motorTemperatureRightFront = QLabel("Motor Temperature RF", self)
         self.motorTemperatureRightFront.setAlignment(Qt.AlignCenter)
         self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: green} ")
 
-        self.motorTemperatureLeftRear = QLabel("Motor Torque LR", self)
+        self.motorTemperatureLeftRear = QLabel("Motor Temperature LR", self)
         self.motorTemperatureLeftRear.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: green} ")
 
-        self.motorTemperatureRightRear = QLabel("Motor Torque RR", self)
+        self.motorTemperatureRightRear = QLabel("Motor Temperature RR", self)
         self.motorTemperatureRightRear.setAlignment(Qt.AlignCenter)
         self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green} ")
 
@@ -161,11 +168,6 @@ class MainWindowNoSpeed(QWidget):
         box = QVBoxLayout()
         box.addWidget(self.groupBox)
         self.setLayout(box)
-
-
-        self.motorTemperature.setStyleSheet('color: blue')
-        self.batteryLevel.setStyleSheet('color: white')
-        self.batteryTemperature.setStyleSheet('color: white')
         ##
 
     ## Widget behavior based on passed values
@@ -209,14 +211,12 @@ class MainWindowNoSpeed(QWidget):
         while rows < 15:
             cols = 0
             while cols < 15:
-                if rows == 0 and cols == 1:
-                    layout.addWidget(self.batteryLevel, rows, cols)
-                elif rows == 1 and cols == 0:
-                    layout.addWidget(self.batteryTemperature, rows, cols)
-                elif rows == 1 and cols == 1:
-                    layout.addWidget(self.shutdown, rows, cols)
-                elif rows == 1 and cols == 2:
-                    layout.addWidget(self.motorTemperature,rows,cols)
+                if rows == 1 and cols == 1:
+                    layout.addWidget(self.batteryTemperature, rows, cols,1,7)
+                elif rows == 3 and cols == 1:
+                    layout.addWidget(self.batteryLevel,rows,cols,6,7)
+                elif rows == 10 and cols == 1:
+                    layout.addWidget(self.speed,rows,cols,4,7)
                 elif rows == 0 and cols == 12:
                     layout.addWidget(self.motorTemperatureLabel,rows,cols,1,3)
                 elif rows == 1 and cols == 12:
@@ -318,15 +318,15 @@ class MainWindowSpeed(QWidget):
         layout = QGridLayout()
         
         rows = 0
-        while rows < 6:
+        while rows < 15:
             cols = 0
-            while cols < 3:
+            while cols < 15:
                 if rows == 2 and cols == 1:
                     layout.addWidget(self.batteryLevel, rows, cols)
                 elif rows == 1 and cols == 0:
                     layout.addWidget(self.speedDisplay, rows, cols, 1,3)
-                elif rows == 0 and cols == 0:
-                    layout.addWidget(self.speed, rows, cols, 1, 3)
+                elif rows == 5 and cols == 0:
+                    layout.addWidget(self.speed, rows, cols, 8, 3)
                 elif rows == 3 and cols == 0:
                     layout.addWidget(self.batteryTemperature, rows, cols)
                 elif rows == 3 and cols == 1:

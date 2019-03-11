@@ -31,7 +31,7 @@ class Presenter:
 
         ## Accepts signal from Test module
         self.test.updateTestSignal.connect(self.processValues)
-        #
+        ##
 
     ##
        
@@ -43,7 +43,6 @@ class Presenter:
         ## Accepts signal from Test module
         self.test.updateTestSignal.connect(self.processValues)
         ##
-
     ##
     
     ## Creates auxiliary list and passes that list to function that displays
