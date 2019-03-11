@@ -296,13 +296,10 @@ class MainWindowSpeed(QWidget):
 
         self.motorTorqueRightRear = QLabel("Motor Torque RR", self)
         self.motorTorqueRightRear.setAlignment(Qt.AlignCenter)
-
         
         self.shutdown = QLabel("Shutdown", self)
         self.shutdown.setAlignment(Qt.AlignCenter)
         self.shutdownIcon = QPixmap("icons/shutdown.jpeg")
-
-        
 
         self.createGrid()
 
