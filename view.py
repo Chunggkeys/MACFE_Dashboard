@@ -155,7 +155,7 @@ class MainWindowNoSpeed(QWidget):
         else:
             self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
         
-        if int(values[5]) == 1:
+        if int(values[8]) == 1:
             self.shutdown.setPixmap(self.shutdownIcon)
         else:
             self.shutdown.clear()
@@ -304,7 +304,7 @@ class MainWindowSpeed(QWidget):
         else:
             self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
         
-        if int(values[5]) == 1:
+        if int(values[8]) == 1:
             self.shutdown.setPixmap(self.shutdownIcon)
         else:
             self.shutdown.clear()

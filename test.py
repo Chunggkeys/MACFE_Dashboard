@@ -10,7 +10,7 @@ import sys
 ## Test class
 class Test(QThread):
 
-	updateSignal = pyqtSignal(list)
+	updateTestSignal = pyqtSignal(list)
 
 	def __init__(self, guiModel):
 
@@ -37,13 +37,19 @@ class Test(QThread):
 			self._guiModel.setBatteryLevel(batteryLevel)
 			batteryTemperature = values[3]
 			self._guiModel.setBatteryTemperature(batteryTemperature)
-			motorTorque = values[4]
-			self._guiModel.setMotorTorque(motorTorque)
-			shutdown = values[5]
+			motorTorqueOne = values[4]
+			self._guiModel.setMotorTorqueOne(motorTorqueOne)
+			motorTorqueTwo = values[5]
+			self._guiModel.setMotorTorqueTwo(motorTorqueTwo)
+			motorTorqueThree = values[6]
+			self._guiModel.setMotorTorqueThree(motorTorqueThree)
+			motorTorqueFour = values[7]
+			self._guiModel.setMotorTorqueFour(motorTorqueFour)
+			shutdown = values[8]
 			self._guiModel.setShutdown(shutdown)
 
 			## Emits a signal, telling presenter.py that values have been changed
-			self.updateSignal.emit(values)
+			self.updateTestSignal.emit(values)
 			##
 
 		##

@@ -30,7 +30,7 @@ class Presenter:
         self.test = Test(self._guiModel)
 
         ## Accepts signal from Test module
-        self.test.updateSignal.connect(self.processValues)
+        self.test.updateTestSignal.connect(self.processValues)
         #
 
     ##
@@ -41,7 +41,7 @@ class Presenter:
         self.test = Test(self._guiModel)
 
         ## Accepts signal from Test module
-        self.test.updateSignal.connect(self.processValues)
+        self.test.updateTestSignal.connect(self.processValues)
         ##
 
     ##
@@ -51,8 +51,9 @@ class Presenter:
         self.values = values
 
         displayValues = []
+        length = len(values)
         
-        for i in range(6):
+        for i in range(length):
             displayValues.append(self.values[i])
             
         self.updateValues(displayValues)
