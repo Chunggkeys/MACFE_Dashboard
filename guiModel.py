@@ -6,13 +6,15 @@ class guiModel(QObject):
 
 	updateSignal = pyqtSignal(list)
 
-	def __init__(self,mTemp,speed,bLevel,bTemp,mTorque,shutdown):
-		
+	def __init__(self,mTemp,speed,bLevel,bTemp,mTorqueOne,mTorqueTwo,mTorqueThree,mTorqueFour,shutdown):
+
 		super().__init__()
 		#self.listValues = []
 		self.mTemp = mTemp; self.speed = speed 
 		self.bLevel = bLevel; self.shutdown = shutdown
-		self.bTemp = bTemp; self.mTorque = mTorque
+		self.bTemp = bTemp; self.mTorqueOne = mTorqueOne
+		self.mTorqueTwo = mTorqueTwo; self.mTorqueThree = mTorqueThree
+		self.mTorqueFour = mTorqueFour
 
 	## Setters for car info
 	def setBatteryLevel(self, bLevel):
@@ -31,9 +33,18 @@ class guiModel(QObject):
 		self.speed = speed
 		#self.listValues.append(self.speed)
 		
-	def setMotorTorque(self, mTorque):
-		self.mTorque = mTorque
+	def setMotorTorqueOne(self, mTorqueOne):
+		self.mTorqueOne = mTorqueOne
 		#self.listValues.append(self.mTorque)
+	
+	def setMotorTorqueTwo(self, mTorqueTwo):
+		self.mTorqueTwo = mTorqueTwo
+	
+	def setMotorTorqueThree(self, mTorqueThree):
+		self.mTorqueThree = mTorqueThree
+	
+	def setMotorTorqueFour(self, mTorqueFour):
+		self.mTorqueFour = mTorqueFour
 		
 	def setShutdown(self, shutdown):
 		self.shutdown = shutdown
@@ -54,9 +65,18 @@ class guiModel(QObject):
 	def getBatteryTemperature(self):
 		return str(self.bTemp)
 
-	def getMotorTorque(self):
-		return self.mTorque
-	
+	def getMotorTorqueOne(self):
+		return self.mTorqueOne
+
+	def getMotorTorqueTwo(self):
+		return self.mTorqueTwo
+
+	def getMotorTorqueThree(self):
+		return self.mTorqueThree
+
+	def getMotorTorqueFour(self):
+		return self.mTorqueFour
+		
 	def getShutdown(self):
 		return self.shutdown
 	##
