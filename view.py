@@ -120,9 +120,37 @@ class MainWindowNoSpeed(QWidget):
         self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
         self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
-        self.motorTorque = QLabel("Motor Torque",self)
-        self.motorTorque.setAlignment(Qt.AlignCenter)
-        self.motorTorque.setFont(torqueFont)
+        self.motorTemperatureLeftFront = QLabel("Motor Torque LR", self)
+        self.motorTemperatureLeftFront.setAlignment(Qt.AlignCenter)
+        self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green} ")
+
+        self.motorTemperatureRightFront = QLabel("Motor Torque RF", self)
+        self.motorTemperatureRightFront.setAlignment(Qt.AlignCenter)
+        self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: green} ")
+
+        self.motorTemperatureLeftRear = QLabel("Motor Torque LR", self)
+        self.motorTemperatureLeftRear.setAlignment(Qt.AlignCenter)
+        self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: green} ")
+
+        self.motorTemperatureRightRear = QLabel("Motor Torque RR", self)
+        self.motorTemperatureRightRear.setAlignment(Qt.AlignCenter)
+        self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green} ")
+
+        self.motorTemperatureLabel = QLabel("Motor Temperatures", self)
+        self.motorTemperatureLabel.setAlignment(Qt.AlignCenter)
+        self.motorTemperatureLabel.setStyleSheet("color: white")
+
+        self.highVoltReady = QLabel("HV", self)
+        self.highVoltReady.setAlignment(Qt.AlignCenter)
+        self.highVoltReady.setStyleSheet("QLabel {background-color: green} ")
+
+        self.lowVoltReady = QLabel("LV", self)
+        self.lowVoltReady.setAlignment(Qt.AlignCenter)
+        self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
+
+        self.readyLabel = QLabel("Startup Status", self)
+        self.readyLabel.setAlignment(Qt.AlignCenter)
+        self.readyLabel.setStyleSheet('color: white')
 
         self.shutdown = QLabel("Shutdown",self)
         self.shutdown.setAlignment(Qt.AlignCenter)
@@ -138,27 +166,26 @@ class MainWindowNoSpeed(QWidget):
         self.motorTemperature.setStyleSheet('color: blue')
         self.batteryLevel.setStyleSheet('color: white')
         self.batteryTemperature.setStyleSheet('color: white')
-        self.motorTorque.setStyleSheet('color: white')
         ##
 
     ## Widget behavior based on passed values
     def processValues(self, values):
-        if int(values[0]) > 80: 
-            self.motorTemperature.setPixmap(self.motorTemperatureIconRed)
-        elif int(values[0]) < 60:
-            self.motorTemperature.setPixmap(self.motorTemperatureIconBlue)
-        else:
-            self.motorTemperature.setPixmap(self.motorTemperatureIconGreen)
+        # if int(values[0]) > 80: 
+        #     self.motorTemperature.setPixmap(self.motorTemperatureIconRed)
+        # elif int(values[0]) < 60:
+        #     self.motorTemperature.setPixmap(self.motorTemperatureIconBlue)
+        # else:
+        #     self.motorTemperature.setPixmap(self.motorTemperatureIconGreen)
         
-        if int(values[3]) > 70:
-            self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
-        else:
-            self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
+        # if int(values[3]) > 70:
+        #     self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
+        # else:
+        #     self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
         
-        if int(values[8]) == 1:
-            self.shutdown.setPixmap(self.shutdownIcon)
-        else:
-            self.shutdown.clear()
+        # if int(values[8]) == 1:
+        #     self.shutdown.setPixmap(self.shutdownIcon)
+        # else:
+        #     self.shutdown.clear()
 
         self.changeText(values)
     ##
@@ -166,7 +193,10 @@ class MainWindowNoSpeed(QWidget):
     ## For labels that require the showing of values, this method updates labels
     def changeText(self, values):
         self.batteryLevel.setText(values[2])
-        self.motorTorque.setText(values[4])
+        # self.motorTorque.setText(values[4])
+        self.motorTemperature.setText(values[0])
+        self.shutdown.setText(values[8])
+        self.batteryTemperature.setText(values[3])
     ##
 
     ## Defines the grid of the UI and inserts widgets onto coordinates
@@ -176,9 +206,9 @@ class MainWindowNoSpeed(QWidget):
         layout = QGridLayout()
 
         rows = 0
-        while rows < 3:
+        while rows < 15:
             cols = 0
-            while cols < 3:
+            while cols < 15:
                 if rows == 0 and cols == 1:
                     layout.addWidget(self.batteryLevel, rows, cols)
                 elif rows == 1 and cols == 0:
@@ -187,8 +217,22 @@ class MainWindowNoSpeed(QWidget):
                     layout.addWidget(self.shutdown, rows, cols)
                 elif rows == 1 and cols == 2:
                     layout.addWidget(self.motorTemperature,rows,cols)
-                elif rows == 2 and cols == 1:
-                    layout.addWidget(self.motorTorque,rows,cols)
+                elif rows == 0 and cols == 12:
+                    layout.addWidget(self.motorTemperatureLabel,rows,cols,1,3)
+                elif rows == 1 and cols == 12:
+                    layout.addWidget(self.motorTemperatureLeftFront,rows,cols,3,1)
+                elif rows == 1 and cols == 14:
+                    layout.addWidget(self.motorTemperatureRightFront,rows,cols,3,1)
+                elif rows == 5 and cols == 12:
+                    layout.addWidget(self.motorTemperatureLeftRear,rows,cols,3,1)
+                elif rows == 5 and cols == 14:
+                    layout.addWidget(self.motorTemperatureRightRear,rows,cols,3,1)
+                elif rows == 9 and cols == 12:
+                    layout.addWidget(self.readyLabel,rows,cols,1,3)
+                elif rows == 10 and cols == 12:
+                    layout.addWidget(self.highVoltReady,rows,cols)
+                elif rows == 10 and cols == 14:
+                    layout.addWidget(self.lowVoltReady,rows,cols)
                 else:
                     layout.addWidget(QLabel("",self), rows, cols)
                 cols += 1
@@ -241,8 +285,18 @@ class MainWindowSpeed(QWidget):
         self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
         self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
-        self.motorTorque = QLabel("Motor Torque", self)
-        self.motorTorque.setAlignment(Qt.AlignCenter)
+        self.motorTorqueLeftFront = QLabel("Motor Torque LR", self)
+        self.motorTorqueLeftFront.setAlignment(Qt.AlignCenter)
+
+        self.motorTorqueRightFront = QLabel("Motor Torque RF", self)
+        self.motorTorqueRightFront.setAlignment(Qt.AlignCenter)
+
+        self.motorTorqueLeftRear = QLabel("Motor Torque LR", self)
+        self.motorTorqueLeftRear.setAlignment(Qt.AlignCenter)
+
+        self.motorTorqueRightRear = QLabel("Motor Torque RR", self)
+        self.motorTorqueRightRear.setAlignment(Qt.AlignCenter)
+
         
         self.shutdown = QLabel("Shutdown", self)
         self.shutdown.setAlignment(Qt.AlignCenter)
@@ -279,8 +333,8 @@ class MainWindowSpeed(QWidget):
                     layout.addWidget(self.shutdown, rows, cols)
                 elif rows == 3 and cols == 2:
                     layout.addWidget(self.motorTemperature,rows,cols)
-                elif rows == 4 and cols == 1:
-                    layout.addWidget(self.motorTorque,rows,cols)
+                # elif rows == 4 and cols == 1:
+                #     layout.addWidget(self.motorTorque,rows,cols)
                 else:
                     layout.addWidget(QLabel("",self), rows, cols)
                 cols += 1
@@ -292,22 +346,22 @@ class MainWindowSpeed(QWidget):
     ## Widget behavior based on passed values
     def processValues(self, values):
 
-        if int(values[0]) > 80: 
-            self.motorTemperature.setPixmap(self.motorTemperatureIconRed)
-        elif int(values[0]) < 60:
-            self.motorTemperature.setPixmap(self.motorTemperatureIconBlue)
-        else:
-            self.motorTemperature.setPixmap(self.motorTemperatureIconGreen)
+        # if int(values[0]) > 80: 
+        #     self.motorTemperature.setPixmap(self.motorTemperatureIconRed)
+        # elif int(values[0]) < 60:
+        #     self.motorTemperature.setPixmap(self.motorTemperatureIconBlue)
+        # else:
+        #     self.motorTemperature.setPixmap(self.motorTemperatureIconGreen)
         
-        if int(values[3]) > 70:
-            self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
-        else:
-            self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
+        # if int(values[3]) > 70:
+        #     self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
+        # else:
+        #     self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
         
-        if int(values[8]) == 1:
-            self.shutdown.setPixmap(self.shutdownIcon)
-        else:
-            self.shutdown.clear()
+        # if int(values[8]) == 1:
+        #     self.shutdown.setPixmap(self.shutdownIcon)
+        # else:
+        #     self.shutdown.clear()
 
         self.changeText(values)
     ##
@@ -315,7 +369,7 @@ class MainWindowSpeed(QWidget):
     ## For labels that require the showing of values, this method updates labels
     def changeText(self, values):
         self.batteryLevel.setText(values[2])
-        self.motorTorque.setText(values[4])
+        #self.motorTorque.setText(values[4])
         self.speed.setValue(int(values[1]))
         self.speedDisplay.setText(values[1])
     ##
