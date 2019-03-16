@@ -41,30 +41,23 @@ class Presenter:
         self.test = Test(self._guiModel)
 
         ## Accepts signal from Test module
-        self.test.updateTestSignal.connect(self.processValues)
+        self.test.updateTestSignal.connect(self.updateTestValues)
         ##
-    ##
-    
-    ## Creates auxiliary list and passes that list to function that displays
-    def processValues(self, values):
-        self.values = values
-
-        displayValues = []
-        length = len(values)
-        
-        for i in range(length):
-            displayValues.append(int(self.values[i]))
-            
-        self.updateValues(displayValues)
     ##
 
     ##  Changes values in respective GUI
-    def updateValues(self, displayValues):
+    def updateTestValues(self, values):
+
+        self.values = []
+        size = len(values)
+
+        for i in range(size):
+            self.values.append(int(values[i]))
         
-        self._mainWindowNoSpeed.processValues(displayValues)
+        self._mainWindowNoSpeed.processValues(self.values)
         # self._mainWindowSpeed.processValues(displayValues)
     ##
 
-    #def getRequest(self): ##Real values from CAN   
+    #def updateCANValues(self): ##Real values from CAN   
         ## read CAN values
         
