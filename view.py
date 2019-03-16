@@ -99,7 +99,7 @@ class MainWindowNoSpeed(QWidget):
         
         ## Appearance of UI
         self.setWindowState(QtCore.Qt.WindowMaximized)
-        self.setWindowTitle("No Speed")
+        self.setWindowTitle("Dashboard")
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.black)
         self.setPalette(p)  
@@ -107,6 +107,8 @@ class MainWindowNoSpeed(QWidget):
         torqueFont.setPointSize(50)
         shutdownFont = QFont()
         shutdownFont.setPointSize(100)
+        batteryLevelFont = QFont()
+        batteryLevelFont.setPointSize(50)
 
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
@@ -114,6 +116,7 @@ class MainWindowNoSpeed(QWidget):
 
         self.batteryLevel = QLabel("Battery Level", self)
         self.batteryLevel.setAlignment(Qt.AlignCenter)
+        self.batteryLevel.setFont(batteryLevelFont)
         self.batteryLevel.setStyleSheet("color: white")
         self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
@@ -196,7 +199,7 @@ class MainWindowNoSpeed(QWidget):
         # else:
         #     self.shutdown.clear()
 
-        # self.changeText(values)
+        self.changeText(values)
     ##
 
     def processMotorValues(self,values):
@@ -227,8 +230,8 @@ class MainWindowNoSpeed(QWidget):
             self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green}")
     
     ## For labels that require the showing of values, this method updates labels
-    # def changeText(self, values):
-    #     self.batteryLevel.setText(values[2])
+    def changeText(self, values):
+        self.batteryLevel.setText(str(values[1]))
     #     # self.motorTorque.setText(values[4])
     #     self.motorTemperature.setText(values[0])
     #     self.shutdown.setText(values[7])
