@@ -29,23 +29,21 @@ class Test(QThread):
 		while self.isRunning:
 			spam = sys.stdin.readline()
 			values = spam.split(",")
-			motorTemperature = values[0]
-			self._guiModel.setMotorTemperature(motorTemperature)
-			speed = values[1]
+			speed = values[0]
 			self._guiModel.setSpeed(speed)
-			batteryLevel = values[2]
+			batteryLevel = int(values[1])
 			self._guiModel.setBatteryLevel(batteryLevel)
-			batteryTemperature = values[3]
+			batteryTemperature = int(values[2])
 			self._guiModel.setBatteryTemperature(batteryTemperature)
-			motorTorqueOne = values[4]
-			self._guiModel.setMotorTorqueOne(motorTorqueOne)
-			motorTorqueTwo = values[5]
-			self._guiModel.setMotorTorqueTwo(motorTorqueTwo)
-			motorTorqueThree = values[6]
-			self._guiModel.setMotorTorqueThree(motorTorqueThree)
-			motorTorqueFour = values[7]
-			self._guiModel.setMotorTorqueFour(motorTorqueFour)
-			shutdown = values[8]
+			motorTorqueOne = int(values[3])
+			self._guiModel.setMotorTempOne(motorTorqueOne)
+			motorTorqueTwo = int(values[4])
+			self._guiModel.setMotorTempTwo(motorTorqueTwo)
+			motorTorqueThree = int(values[5])
+			self._guiModel.setMotorTempThree(motorTorqueThree)
+			motorTorqueFour = int(values[6])
+			self._guiModel.setMotorTempFour(motorTorqueFour)
+			shutdown = int(values[7])
 			self._guiModel.setShutdown(shutdown)
 
 			## Emits a signal, telling presenter.py that values have been changed

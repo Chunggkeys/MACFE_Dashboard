@@ -18,19 +18,19 @@ from view import *
 class Presenter:
 
     ## Initializes the presenter with instances of the GUI with/without speed indication, and model 
-    def __init__(self, selectWindow, MainWindowNoSpeed, MainWindowSpeed, guiModel):
+    def __init__(self, selectWindow, MainWindowNoSpeed, guiModel):
         self._selectWindow = selectWindow
-        self._mainWindowSpeed = MainWindowSpeed
+        #self._mainWindowSpeed = MainWindowSpeed
         self._guiModel = guiModel
         self._mainWindowNoSpeed = MainWindowNoSpeed 
     
     ## Opens GUI with speed indicator window and initializes Test/CAN module
-    def withSpeed(self):
-        self._mainWindowSpeed.show()
-        self.test = Test(self._guiModel)
+    # def withSpeed(self):
+    #     self._mainWindowSpeed.show()
+    #     self.test = Test(self._guiModel)
 
-        ## Accepts signal from Test module
-        self.test.updateTestSignal.connect(self.processValues)
+    #     ## Accepts signal from Test module
+    #     self.test.updateTestSignal.connect(self.processValues)
         ##
 
     ##
@@ -53,7 +53,7 @@ class Presenter:
         length = len(values)
         
         for i in range(length):
-            displayValues.append(self.values[i])
+            displayValues.append(int(self.values[i]))
             
         self.updateValues(displayValues)
     ##
@@ -62,7 +62,7 @@ class Presenter:
     def updateValues(self, displayValues):
         
         self._mainWindowNoSpeed.processValues(displayValues)
-        self._mainWindowSpeed.processValues(displayValues)
+        # self._mainWindowSpeed.processValues(displayValues)
     ##
 
     #def getRequest(self): ##Real values from CAN   
