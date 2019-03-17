@@ -126,6 +126,12 @@ class MainWindow(QWidget):
         # self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
         # self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
+        self.batteryTemperatureError = QLabel("Battery Temp Icon", self)
+        self.batteryTemperatureError.setAlignment(Qt.AlignCenter)
+        self.batteryTemperatureError.setStyleSheet("QLabel {background-color: green}")
+        self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
+
+
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setMaximum(100)
         self.batteryTemperature.setMinimum(0)
@@ -138,6 +144,11 @@ class MainWindow(QWidget):
         self.motorTemperatureLeftFront = QLabel("LF Motor", self)
         self.motorTemperatureLeftFront.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green} ")
+
+        self.motorTemperatureError = QLabel("Motor Temp Icon", self)
+        self.motorTemperatureError.setAlignment(Qt.AlignCenter)
+        self.motorTemperatureError.setStyleSheet("QLabel {background-color: green}")
+        self.motorTemperatureIcon = QPixmap('icons/iconJPGFiles/motorTempRed.jpg')
 
         self.motorTemperatureRightFront = QLabel("RF Motor", self)
         self.motorTemperatureRightFront.setAlignment(Qt.AlignCenter)
@@ -187,13 +198,6 @@ class MainWindow(QWidget):
         
         self.processMotorValues(values)
 
-        # if int(values[0]) > 80: 
-        #     self.motorTemperature.setPixmap(self.motorTemperatureIconRed)
-        # elif int(values[0]) < 60:
-        #     self.motorTemperature.setPixmap(self.motorTemperatureIconBlue)
-        # else:
-        #     self.motorTemperature.setPixmap(self.motorTemperatureIconGreen)
-        
         # if int(values[3]) > 70:
         #     self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
         # else:
@@ -212,6 +216,7 @@ class MainWindow(QWidget):
         
         if values[3] > 100: 
             self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: red}")
+            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
         elif values[3] > 50:
             self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: yellow}")
         else:
@@ -219,6 +224,7 @@ class MainWindow(QWidget):
         
         if values[4] > 100:
             self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: red}")
+            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
         elif values[4] > 50:
             self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: yellow}")
         else:
@@ -226,6 +232,7 @@ class MainWindow(QWidget):
         
         if values[5] > 100:
             self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: red}")
+            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
         elif values[5] > 50:
             self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: yellow}")
         else:
@@ -233,6 +240,7 @@ class MainWindow(QWidget):
         
         if values[6] > 100:
             self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: red}")
+            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
         elif values[6] > 50:
             self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: yellow}")
         else:
@@ -257,12 +265,16 @@ class MainWindow(QWidget):
             while cols < 15:
                 if rows == 1 and cols == 0:
                     layout.addWidget(self.batteryTemperature, rows, cols,1,7)
+                elif rows == 1 and cols == 8:
+                    layout.addWidget(self.batteryTemperatureError,rows,cols,2,2)
                 elif rows == 0 and cols == 0:
                     layout.addWidget(self.batteryTemperatureLabel,rows,cols,1,7)
                 elif rows == 3 and cols == 0:
                     layout.addWidget(self.batteryLevel,rows,cols,6,7)
                 elif rows == 10 and cols == 0:
                     layout.addWidget(self.speed,rows,cols,4,7)
+                elif rows == 4 and cols == 8:
+                    layout.addWidget(self.motorTemperatureError,rows,cols,2,2)
                 elif rows == 0 and cols == 12:
                     layout.addWidget(self.motorTemperatureLabel,rows,cols,1,3)
                 elif rows == 1 and cols == 12:
