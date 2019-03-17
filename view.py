@@ -107,8 +107,8 @@ class MainWindowNoSpeed(QWidget):
         torqueFont.setPointSize(50)
         shutdownFont = QFont()
         shutdownFont.setPointSize(100)
-        batteryLevelFont = QFont()
-        batteryLevelFont.setPointSize(50)
+        # batteryLevelFont = QFont()
+        # batteryLevelFont.setPointSize(50)
 
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
@@ -116,19 +116,24 @@ class MainWindowNoSpeed(QWidget):
 
         self.batteryLevel = QLabel("Battery Level", self)
         self.batteryLevel.setAlignment(Qt.AlignCenter)
-        self.batteryLevel.setFont(batteryLevelFont)
+        # self.batteryLevel.setFont(batteryLevelFont)
         self.batteryLevel.setStyleSheet("color: white")
         self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
-        self.batteryTemperature = QLabel("", self)
-        self.batteryTemperature.setAlignment(Qt.AlignCenter)
-        self.batteryTemperature.setStyleSheet("QLabel {background-color: green}")
-        self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
-        self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
+        # self.batteryTemperature = QLabel("", self)
+        # self.batteryTemperature.setAlignment(Qt.AlignCenter)
+        # self.batteryTemperature.setStyleSheet("QLabel {background-color: green}")
+        # self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
+        # self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
 
-        self.batteyTemperatureLabel = QLabel("Battery Temperature", self)
-        self.batteyTemperatureLabel.setAlignment(Qt.AlignCenter)
-        self.batteyTemperatureLabel.setStyleSheet("color: white")
+        self.batteryTemperature = QProgressBar(self)
+        self.batteryTemperature.setMaximum(100)
+        self.batteryTemperature.setMinimum(0)
+        self.batteryTemperature.setTextVisible(False)
+
+        self.batteryTemperatureLabel = QLabel("Battery Temperature", self)
+        self.batteryTemperatureLabel.setAlignment(Qt.AlignCenter)
+        self.batteryTemperatureLabel.setStyleSheet("color: white")
 
         self.motorTemperatureLeftFront = QLabel("LF Motor", self)
         self.motorTemperatureLeftFront.setAlignment(Qt.AlignCenter)
@@ -199,9 +204,10 @@ class MainWindowNoSpeed(QWidget):
         # else:
         #     self.shutdown.clear()
 
-        self.changeText(values)
+        self.changeTextAndValue(values)
     ##
 
+    ## Method dedicated to process Motor Temperature values
     def processMotorValues(self,values):
         
         if values[3] > 100: 
@@ -210,32 +216,33 @@ class MainWindowNoSpeed(QWidget):
             self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: yellow}")
         else:
             self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green}")
+        
         if values[4] > 100:
             self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: red}")
         elif values[4] > 50:
             self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: yellow}")
         else:
             self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: green}")
+        
         if values[5] > 100:
             self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: red}")
         elif values[5] > 50:
             self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: yellow}")
         else:
             self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: green}")
+        
         if values[6] > 100:
             self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: red}")
         elif values[6] > 50:
             self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: yellow}")
         else:
             self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green}")
-    
+    ##
+
     ## For labels that require the showing of values, this method updates labels
-    def changeText(self, values):
+    def changeTextAndValue(self, values):
         self.batteryLevel.setText(str(values[1]))
-    #     # self.motorTorque.setText(values[4])
-    #     self.motorTemperature.setText(values[0])
-    #     self.shutdown.setText(values[7])
-    #     self.batteryTemperature.setText(values[3])
+        self.batteryTemperature.setValue(values[2])
     ##
 
     ## Defines the grid of the UI and inserts widgets onto coordinates
@@ -251,7 +258,7 @@ class MainWindowNoSpeed(QWidget):
                 if rows == 1 and cols == 0:
                     layout.addWidget(self.batteryTemperature, rows, cols,1,7)
                 elif rows == 0 and cols == 0:
-                    layout.addWidget(self.batteyTemperatureLabel,rows,cols,1,7)
+                    layout.addWidget(self.batteryTemperatureLabel,rows,cols,1,7)
                 elif rows == 3 and cols == 0:
                     layout.addWidget(self.batteryLevel,rows,cols,6,7)
                 elif rows == 10 and cols == 0:
