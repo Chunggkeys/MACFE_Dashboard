@@ -12,13 +12,13 @@ def main():
 
     gModel = guiModel(0,0,0,0,0,0,0,0,)
     select = selectWindow()
-    MWindowNoSpeed = MainWindowNoSpeed()
+    MWindow= MainWindow()
     # MWindowSpeed = MainWindowSpeed()
-    p = Presenter(select, MWindowNoSpeed,gModel)
+    p = Presenter(select, MWindow,gModel)
 
     ## Accepts signals from View module and opens respective GUIs
     # select.yesClicked.connect(p.withSpeed)
-    select.noClicked.connect(p.withNoSpeed)
+    select.noClicked.connect(p.open)
     ##
     
     sys.exit(app.exec_())

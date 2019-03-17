@@ -36,7 +36,7 @@ class Presenter:
     ##
        
     ## Opens GUI without speed indicator window and initializes Test/CAN module
-    def withNoSpeed(self):
+    def open(self):
         self._mainWindowNoSpeed.show()
         self.test = Test(self._guiModel)
 

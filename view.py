@@ -82,7 +82,7 @@ class selectWindow(QWidget):
         self.groupBox.setLayout(layout)
     ##
 
-class MainWindowNoSpeed(QWidget): 
+class MainWindow(QWidget): 
 
     ## Signal definition
     buttonClicked = pyqtSignal()
