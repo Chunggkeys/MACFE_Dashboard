@@ -6,7 +6,7 @@ class guiModel(QObject):
 
 	updateSignal = pyqtSignal(list)
 
-	def __init__(self,speed,bLevel,bTemp,mTempOne,mTempTwo,mTempThree,mTempFour,shutdown):
+	def __init__(self,speed,bLevel,bTemp,mTempOne,mTempTwo,mTempThree,mTempFour,shutdown,maxPower):
 
 		super().__init__()
 		#self.listValues = []
@@ -14,7 +14,7 @@ class guiModel(QObject):
 		self.bLevel = bLevel; self.shutdown = shutdown
 		self.bTemp = bTemp; self.mTempOne = mTempOne
 		self.mTempTwo = mTempTwo; self.mTempThree = mTempThree
-		self.mTempFour = mTempFour
+		self.mTempFour = mTempFour; self.maxPower = maxPower
 
 	## Setters for car info
 	def setBatteryLevel(self, bLevel):
@@ -50,6 +50,9 @@ class guiModel(QObject):
 		self.shutdown = shutdown
 		#self.listValues.append(self.shutdown)
 		#self.updateSignal.emit(self.listValues)
+	
+	def sefMaxPower(self, maxPower):
+		self.maxPower = maxPower
 	##
 
 	## getters for car info
@@ -79,4 +82,7 @@ class guiModel(QObject):
 		
 	def getShutdown(self):
 		return self.shutdown
+	
+	def getMaxPower(self):
+		return self.maxPower
 	##

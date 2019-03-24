@@ -10,7 +10,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
 
-    gModel = guiModel(0,0,0,0,0,0,0,0,)
+    gModel = guiModel(0,0,0,0,0,0,0,0,0)
     select = selectWindow()
     MWindow= MainWindow()
     # MWindowSpeed = MainWindowSpeed()

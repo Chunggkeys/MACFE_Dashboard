@@ -38,9 +38,9 @@ class selectWindow(QWidget):
         self.setLayout(box)
         ##
 
-        ## Signals yesButtonClicked that yes button in window is pressed
-        self.pyButtonYes.clicked.connect(self.yesButtonClicked)
-        ##
+        # ## Signals yesButtonClicked that yes button in window is pressed
+        # self.pyButtonYes.clicked.connect(self.yesButtonClicked)
+        # ##
 
         ## Signal noButtonClicked that no button in window is pressed
         self.pyButtonNo.clicked.connect(self.noButtonClicked)
@@ -49,9 +49,9 @@ class selectWindow(QWidget):
         self.show()
 
     ## Emits signal and closes window
-    def yesButtonClicked(self):
-        self.yesClicked.emit()
-        self.close()
+    # def yesButtonClicked(self):
+    #     self.yesClicked.emit()
+    #     self.close()
 
     def noButtonClicked(self):
         self.noClicked.emit()
@@ -141,26 +141,30 @@ class MainWindow(QWidget):
         self.batteryTemperatureLabel.setAlignment(Qt.AlignCenter)
         self.batteryTemperatureLabel.setStyleSheet("color: white")
 
-        self.motorTemperatureLeftFront = QLabel("LF Motor", self)
-        self.motorTemperatureLeftFront.setAlignment(Qt.AlignCenter)
-        self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green} ")
+        self.motorTemperatureLeftFront = QProgressBar(self)
+        self.motorTemperatureLeftFront.setOrientation(Qt.Vertical)
+        self.motorTemperatureLeftFront.setMaximum(100)
+        self.motorTemperatureLeftFront.setMinimum(0)
 
         self.motorTemperatureError = QLabel("Motor Temp Icon", self)
         self.motorTemperatureError.setAlignment(Qt.AlignCenter)
         self.motorTemperatureError.setStyleSheet("QLabel {background-color: green}")
         self.motorTemperatureIcon = QPixmap('icons/iconJPGFiles/motorTempRed.jpg')
 
-        self.motorTemperatureRightFront = QLabel("RF Motor", self)
-        self.motorTemperatureRightFront.setAlignment(Qt.AlignCenter)
-        self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: green} ")
+        self.motorTemperatureRightFront = QProgressBar(self)
+        self.motorTemperatureRightFront.setOrientation(Qt.Vertical)
+        self.motorTemperatureRightFront.setMaximum(100)
+        self.motorTemperatureRightFront.setMinimum(0)
 
-        self.motorTemperatureLeftRear = QLabel("LR Motor", self)
-        self.motorTemperatureLeftRear.setAlignment(Qt.AlignCenter)
-        self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: green} ")
+        self.motorTemperatureLeftRear = QProgressBar(self)
+        self.motorTemperatureLeftRear.setOrientation(Qt.Vertical)
+        self.motorTemperatureLeftRear.setMaximum(100)
+        self.motorTemperatureLeftRear.setMinimum(0)
 
-        self.motorTemperatureRightRear = QLabel("RR Motor", self)
-        self.motorTemperatureRightRear.setAlignment(Qt.AlignCenter)
-        self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green} ")
+        self.motorTemperatureRightRear = QProgressBar(self)
+        self.motorTemperatureRightRear.setOrientation(Qt.Vertical)
+        self.motorTemperatureRightRear.setMaximum(100)
+        self.motorTemperatureRightRear.setMinimum(0)
 
         self.motorTemperatureLabel = QLabel("Motor Temperatures", self)
         self.motorTemperatureLabel.setAlignment(Qt.AlignCenter)
@@ -196,7 +200,7 @@ class MainWindow(QWidget):
     ## Widget behavior based on passed values
     def processValues(self, values):
         
-        self.processMotorValues(values)
+        self.progressBarColors(values)
 
         # if int(values[3]) > 70:
         #     self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
@@ -212,45 +216,77 @@ class MainWindow(QWidget):
     ##
 
     ## Method dedicated to process Motor Temperature values
-    def processMotorValues(self,values):
-        
-        if values[3] > 100: 
-            self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: red}")
-            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
-        elif values[3] > 50:
-            self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: yellow}")
+    def progressBarColors(self,values):
+
+        if values[2] > 80: 
+            self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.red)
+        elif values[2] > 60:
+            self.changeProgressBarColor(self.batteryTemperature, QtGui.QColor(255,143,15))
+        elif values[2] > 40:
+            self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.yellow)
+        elif values[2] > 20:    
+            self.changeProgressBarColor(self.batteryTemperature, QtGui.QColor(226,255,41,255))
         else:
-            self.motorTemperatureLeftFront.setStyleSheet("QLabel {background-color: green}")
+            self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.green)
         
-        if values[4] > 100:
-            self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: red}")
-            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
-        elif values[4] > 50:
-            self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: yellow}")
+        if values[3] > 80: 
+            self.changeProgressBarColor(self.motorTemperatureLeftFront, QtCore.Qt.red)
+        elif values[3] > 60:
+            self.changeProgressBarColor(self.motorTemperatureLeftFront, QtGui.QColor(255,143,15))
+        elif values[3] > 40:
+            self.changeProgressBarColor(self.motorTemperatureLeftFront, QtCore.Qt.yellow)
+        elif values[3] > 20:    
+            self.changeProgressBarColor(self.motorTemperatureLeftFront, QtGui.QColor(226,255,41,255))
         else:
-            self.motorTemperatureRightFront.setStyleSheet("QLabel {background-color: green}")
+            self.changeProgressBarColor(self.motorTemperatureLeftFront, QtCore.Qt.green)
+
+        if values[4] > 80: 
+            self.changeProgressBarColor(self.motorTemperatureRightFront, QtCore.Qt.red)
+        elif values[4] > 60:
+            self.changeProgressBarColor(self.motorTemperatureRightFront, QtGui.QColor(255,143,15))
+        elif values[4] > 40:
+            self.changeProgressBarColor(self.motorTemperatureRightFront, QtCore.Qt.yellow)
+        elif values[4] > 20:    
+            self.changeProgressBarColor(self.motorTemperatureRightFront, QtGui.QColor(226,255,41,255))
+        else:
+            self.changeProgressBarColor(self.motorTemperatureRightFront, QtCore.Qt.green)
         
-        if values[5] > 100:
-            self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: red}")
-            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
-        elif values[5] > 50:
-            self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: yellow}")
+        if values[5] > 80: 
+            self.changeProgressBarColor(self.motorTemperatureLeftRear, QtCore.Qt.red)
+        elif values[5] > 60:
+            self.changeProgressBarColor(self.motorTemperatureLeftRear, QtGui.QColor(255,143,15))
+        elif values[5] > 40:
+            self.changeProgressBarColor(self.motorTemperatureLeftRear, QtCore.Qt.yellow)
+        elif values[5] > 20:    
+            self.changeProgressBarColor(self.motorTemperatureLeftRear, QtGui.QColor(226,255,41,255))
         else:
-            self.motorTemperatureLeftRear.setStyleSheet("QLabel {background-color: green}")
+            self.changeProgressBarColor(self.motorTemperatureLeftRear, QtCore.Qt.green)
         
-        if values[6] > 100:
-            self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: red}")
-            #self.motorTemperatureError.setPixmap(self.motorTemperatureIcon)
-        elif values[6] > 50:
-            self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: yellow}")
+        if values[6] > 80: 
+            self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.red)
+        elif values[6] > 60:
+            self.changeProgressBarColor(self.motorTemperatureRightRear, QtGui.QColor(255,143,15))
+        elif values[6] > 40:
+            self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.yellow)
+        elif values[6] > 20:    
+            self.changeProgressBarColor(self.motorTemperatureRightRear, QtGui.QColor(226,255,41,255))
         else:
-            self.motorTemperatureRightRear.setStyleSheet("QLabel {background-color: green}")
+            self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.green)
     ##
+
+    def changeProgressBarColor(self, progressBar, color):
+        palette = QtGui.QPalette(progressBar.palette())
+        palette.setColor(QtGui.QPalette.Highlight,QtGui.QColor(color))
+        progressBar.setPalette(palette)
 
     ## For labels that require the showing of values, this method updates labels
     def changeTextAndValue(self, values):
         self.batteryLevel.setText(str(values[1]))
         self.batteryTemperature.setValue(values[2])
+        self.motorTemperatureLeftFront.setValue(values[3])
+        self.motorTemperatureRightFront.setValue(values[4])
+        self.motorTemperatureLeftRear.setValue(values[5])
+        self.motorTemperatureRightRear.setValue(values[6])
     ##
 
     ## Defines the grid of the UI and inserts widgets onto coordinates
