@@ -120,17 +120,10 @@ class MainWindow(QWidget):
         self.batteryLevel.setStyleSheet("color: white")
         self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
-        # self.batteryTemperature = QLabel("", self)
-        # self.batteryTemperature.setAlignment(Qt.AlignCenter)
-        # self.batteryTemperature.setStyleSheet("QLabel {background-color: green}")
-        # self.batteryTemperatureIcon = QPixmap('icons/batteryTempReady.jpg')
-        # self.batteryTemperatureHighIcon = QPixmap('icons/batteryTempNotReady.jpg')
-
         self.batteryTemperatureError = QLabel("Battery Temp Icon", self)
         self.batteryTemperatureError.setAlignment(Qt.AlignCenter)
         self.batteryTemperatureError.setStyleSheet("QLabel {background-color: green}")
         self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
-
 
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setMaximum(100)
@@ -202,10 +195,9 @@ class MainWindow(QWidget):
         
         self.progressBarColors(values)
 
-        # if int(values[3]) > 70:
-        #     self.batteryTemperature.setPixmap(self.batteryTemperatureHighIcon)
-        # else:
-        #     self.batteryTemperature.setPixmap(self.batteryTemperatureIcon)
+        if int(values[2]) > 70:
+            self.batteryTemperatureError.setScaledContents(True)
+            self.batteryTemperatureError.setPixmap(self.batteryTemperatureIcon)
         
         # if int(values[8]) == 1:
         #     self.shutdown.setPixmap(self.shutdownIcon)
