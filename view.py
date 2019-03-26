@@ -137,15 +137,15 @@ class MainWindow(QWidget):
         else:
             self.motorTemperatureError.clear()
         
-        # if values[9] == 1:
-        #     self.highVoltReady.setStyleSheet("QLabel {background-color: black}")
-        # else:
-        #     self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
+        if values[9] == 1:
+            self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
+        else:
+            self.highVoltReady.setStyleSheet("QLabel {background-color: black}")
         
-        # if values[10] == 1:
-        #     self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
-        # else:
-        #     self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
+        if values[10] == 1:
+            self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
+        else:
+            self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
 
     
         

@@ -31,20 +31,36 @@ class Test(QThread):
 			values = spam.split(",")
 			speed = values[0]
 			self._guiModel.setSpeed(speed)
+
 			batteryLevel = int(values[1])
 			self._guiModel.setBatteryLevel(batteryLevel)
+
 			batteryTemperature = int(values[2])
 			self._guiModel.setBatteryTemperature(batteryTemperature)
+
 			motorTorqueOne = int(values[3])
 			self._guiModel.setMotorTempOne(motorTorqueOne)
+
 			motorTorqueTwo = int(values[4])
 			self._guiModel.setMotorTempTwo(motorTorqueTwo)
+
 			motorTorqueThree = int(values[5])
 			self._guiModel.setMotorTempThree(motorTorqueThree)
+
 			motorTorqueFour = int(values[6])
 			self._guiModel.setMotorTempFour(motorTorqueFour)
+
 			shutdown = int(values[7])
 			self._guiModel.setShutdown(shutdown)
+
+			maxPower = int(values[8])
+			self._guiModel.setMaxPower(maxPower)
+
+			hv = int(values[9])
+			self._guiModel.setHV(hv)
+			
+			lv = int(values[10])
+			self._guiModel.setLV(lv)
 
 			## Emits a signal, telling presenter.py that values have been changed
 			self.updateTestSignal.emit(values)

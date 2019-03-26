@@ -9,7 +9,7 @@ class guiModel(QObject):
 	def __init__(self,speed,bLevel,bTemp,mTempOne,mTempTwo,mTempThree,mTempFour,shutdown,maxPower,hv,lv):
 
 		super().__init__()
-		#self.listValues = []
+		
 		self.speed = speed 
 		self.bLevel = bLevel; self.shutdown = shutdown
 		self.bTemp = bTemp; self.mTempOne = mTempOne
@@ -45,7 +45,7 @@ class guiModel(QObject):
 	def setShutdown(self, shutdown):
 		self.shutdown = shutdown
 		
-	def sefMaxPower(self, maxPower):
+	def setMaxPower(self, maxPower):
 		self.maxPower = maxPower
 	
 	def setHV(self, hv):
