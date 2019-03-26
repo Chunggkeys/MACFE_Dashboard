@@ -12,7 +12,6 @@ def main():
 
     gModel = guiModel(0,0,0,0,0,0,0,0,0)
     MWindow= MainWindow()
-    # MWindowSpeed = MainWindowSpeed()
     p = Presenter(MWindow,gModel)
 
     p.open()

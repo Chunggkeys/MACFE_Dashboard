@@ -56,7 +56,6 @@ class MainWindow(QWidget):
 
         self.batteryTemperatureError = QLabel("Battery Temp Icon", self)
         self.batteryTemperatureError.setAlignment(Qt.AlignCenter)
-        #self.batteryTemperatureError.setStyleSheet("QLabel {background-color: green}")
 
         self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
 
@@ -67,7 +66,6 @@ class MainWindow(QWidget):
 
         self.motorTemperatureError = QLabel("Motor Temp Icon", self)
         self.motorTemperatureError.setAlignment(Qt.AlignCenter)
-        #self.motorTemperatureError.setStyleSheet("QLabel {background-color: green}")
 
         self.motorTemperatureIcon = QPixmap('icons/iconJPGFiles/motorTempRed.jpg')
 
@@ -145,7 +143,7 @@ class MainWindow(QWidget):
         self.changeTextAndValue(values)
     ##
 
-    ## Method dedicated to process Motor Temperature values
+    ## Method dedicated to process Motor Temperature values and change progress bar
     def progressBarColors(self,values):
 
         if values[2] > 80: 
@@ -204,10 +202,12 @@ class MainWindow(QWidget):
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.green)
     ##
 
+    ## Change progress bar color
     def changeProgressBarColor(self, progressBar, color):
         palette = QtGui.QPalette(progressBar.palette())
         palette.setColor(QtGui.QPalette.Highlight,QtGui.QColor(color))
         progressBar.setPalette(palette)
+    ##
 
     ## For labels that require the showing of values, this method updates labels
     def changeTextAndValue(self, values):
