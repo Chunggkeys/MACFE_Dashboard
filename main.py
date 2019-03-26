@@ -11,15 +11,11 @@ def main():
     app.setStyle('Fusion')
 
     gModel = guiModel(0,0,0,0,0,0,0,0,0)
-    select = selectWindow()
     MWindow= MainWindow()
     # MWindowSpeed = MainWindowSpeed()
-    p = Presenter(select, MWindow,gModel)
+    p = Presenter(MWindow,gModel)
 
-    ## Accepts signals from View module and opens respective GUIs
-    # select.yesClicked.connect(p.withSpeed)
-    select.noClicked.connect(p.open)
-    ##
+    p.open()
     
     sys.exit(app.exec_())
 
