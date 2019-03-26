@@ -25,12 +25,15 @@ class MainWindow(QWidget):
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.black)
         self.setPalette(p)  
+
         torqueFont = QFont()
         torqueFont.setPointSize(50)
+
         shutdownFont = QFont()
         shutdownFont.setPointSize(100)
-        # batteryLevelFont = QFont()
-        # batteryLevelFont.setPointSize(50)
+
+        batteryLevelFont = QFont()
+        batteryLevelFont.setPointSize(50)
 
         self.blankLabel = QLabel("",self)
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -50,7 +53,7 @@ class MainWindow(QWidget):
 
         self.batteryLevel = QLabel("Battery Level", self)
         self.batteryLevel.setAlignment(Qt.AlignCenter)
-        # self.batteryLevel.setFont(batteryLevelFont)
+        self.batteryLevel.setFont(batteryLevelFont)
         self.batteryLevel.setStyleSheet("color: white")
         self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
@@ -133,6 +136,17 @@ class MainWindow(QWidget):
             self.motorTemperatureError.setPixmap(self.motorTemperatureIcon.scaled(w2,h2,Qt.KeepAspectRatio))
         else:
             self.motorTemperatureError.clear()
+        
+        # if values[9] == 1:
+        #     self.highVoltReady.setStyleSheet("QLabel {background-color: black}")
+        # else:
+        #     self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
+        
+        # if values[10] == 1:
+        #     self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
+        # else:
+        #     self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
+
     
         
         # if int(values[8]) == 1:
