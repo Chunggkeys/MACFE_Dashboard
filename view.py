@@ -93,18 +93,16 @@ class MainWindow(QWidget):
 
         self.highVoltReady = QLabel("HV", self)
         self.highVoltReady.setAlignment(Qt.AlignCenter)
-        self.highVoltReady.setStyleSheet("QLabel {background-color: black} ")
         self.highVoltReady.setStyleSheet("color: white")
         
         self.lowVoltReady = QLabel("LV", self)
         self.lowVoltReady.setAlignment(Qt.AlignCenter)
-        self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
         self.lowVoltReady.setStyleSheet("color: white")
 
         self.readyLabel = QLabel("Startup Status", self)
         self.readyLabel.setAlignment(Qt.AlignCenter)
         self.readyLabel.setStyleSheet('color: white')
-
+    
         self.shutdown = QLabel("Shutdown",self)
         self.shutdown.setAlignment(Qt.AlignCenter)
         self.shutdownIcon = QPixmap('icons/shutdown.jpeg')
@@ -241,6 +239,7 @@ class MainWindow(QWidget):
 
         self.groupBox = QGroupBox()
         layout = QGridLayout()
+        subLayout = QGridLayout()
 
         rows = 0
         while rows < 15:
@@ -271,9 +270,13 @@ class MainWindow(QWidget):
                 elif rows == 9 and cols == 12:
                     layout.addWidget(self.readyLabel,rows,cols,1,3)
                 elif rows == 10 and cols == 12:
-                    layout.addWidget(self.highVoltReady,rows,cols)
-                elif rows == 10 and cols == 14:
-                    layout.addWidget(self.lowVoltReady,rows,cols)
+                    layout.addLayout(subLayout,rows,cols,1,3)
+                    subLayout.addWidget(self.highVoltReady,0,0)
+                    subLayout.addWidget(self.lowVoltReady,0,1)
+                # elif rows == 10 and cols == 12:
+                #     layout.addWidget(self.highVoltReady,rows,cols)
+                # elif rows == 10 and cols == 14:
+                #     layout.addWidget(self.lowVoltReady,rows,cols)
                 elif rows == 12 and cols == 8:
                     layout.addWidget(self.outputLog,rows,cols,2,7)
                 else:
