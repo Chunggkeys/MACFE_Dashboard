@@ -29,18 +29,19 @@ class MainWindow(QWidget):
         torqueFont = QFont()
         torqueFont.setPointSize(50)
 
+        speedFont = QFont()
+        speedFont.setPointSize(80)
+
         shutdownFont = QFont()
         shutdownFont.setPointSize(100)
 
         batteryLevelFont = QFont()
-        batteryLevelFont.setPointSize(50)
-
-        self.blankLabel = QLabel("",self)
-        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        batteryLevelFont.setPointSize(80)
 
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
-        self.speed.setStyleSheet("QLabel {background-color: green}")
+        self.speed.setFont(speedFont)
+        self.speed.setStyleSheet("color: white")
 
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setMaximum(100)
@@ -55,7 +56,6 @@ class MainWindow(QWidget):
         self.batteryLevel.setAlignment(Qt.AlignCenter)
         self.batteryLevel.setFont(batteryLevelFont)
         self.batteryLevel.setStyleSheet("color: white")
-        self.batteryLevel.setStyleSheet("QLabel {background-color: green}")
 
         self.batteryTemperatureError = QLabel("Battery Temp Icon", self)
         self.batteryTemperatureError.setAlignment(Qt.AlignCenter)
@@ -93,11 +93,13 @@ class MainWindow(QWidget):
 
         self.highVoltReady = QLabel("HV", self)
         self.highVoltReady.setAlignment(Qt.AlignCenter)
-        self.highVoltReady.setStyleSheet("QLabel {background-color: green} ")
-
+        self.highVoltReady.setStyleSheet("QLabel {background-color: black} ")
+        self.highVoltReady.setStyleSheet("color: white")
+        
         self.lowVoltReady = QLabel("LV", self)
         self.lowVoltReady.setAlignment(Qt.AlignCenter)
-        self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
+        self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
+        self.lowVoltReady.setStyleSheet("color: white")
 
         self.readyLabel = QLabel("Startup Status", self)
         self.readyLabel.setAlignment(Qt.AlignCenter)
@@ -141,13 +143,13 @@ class MainWindow(QWidget):
             self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
         else:
             self.highVoltReady.setStyleSheet("QLabel {background-color: black}")
+            self.highVoltReady.setStyleSheet("color: white")
         
         if values[10] == 1:
             self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
         else:
             self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
-
-    
+            self.lowVoltReady.setStyleSheet("color: white")
         
         # if int(values[8]) == 1:
         #     self.shutdown.setPixmap(self.shutdownIcon)
@@ -226,7 +228,7 @@ class MainWindow(QWidget):
     ## For labels that require the showing of values, this method updates labels
     def changeTextAndValue(self, values):
         self.batteryLevel.setText("Battery Level: " + str(values[1]))
-        self.speed.setText("Speed: " + str(values[0]))
+        self.speed.setText(str(values[0]) + "<sub>km/h</sub>")
         self.batteryTemperature.setValue(values[2])
         self.motorTemperatureLeftFront.setValue(values[3])
         self.motorTemperatureRightFront.setValue(values[4])
@@ -275,7 +277,8 @@ class MainWindow(QWidget):
                 elif rows == 12 and cols == 8:
                     layout.addWidget(self.outputLog,rows,cols,2,7)
                 else:
-                    layout.addWidget(self.blankLabel, rows, cols)
+                    # layout.addWidget(self.blankLabel, rows, cols)
+                    layout.addWidget(QLabel("",self),rows,cols)
                 cols += 1
             rows += 1
 
