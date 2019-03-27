@@ -225,7 +225,8 @@ class MainWindow(QWidget):
 
     ## For labels that require the showing of values, this method updates labels
     def changeTextAndValue(self, values):
-        self.batteryLevel.setText(str(values[1]))
+        self.batteryLevel.setText("Battery Level: " + str(values[1]))
+        self.speed.setText("Speed: " + str(values[0]))
         self.batteryTemperature.setValue(values[2])
         self.motorTemperatureLeftFront.setValue(values[3])
         self.motorTemperatureRightFront.setValue(values[4])
