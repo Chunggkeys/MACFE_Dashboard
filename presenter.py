@@ -46,6 +46,10 @@ class Presenter:
         
     ##
 
+    #def updateGUI(self):
+
+        # signal.emit()
+
     #def updateCANValues(self): ##Real values from CAN   
         ## read CAN values
         

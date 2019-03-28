@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap, QPalette, QFont 
+from PyQt5.QtGui import QIcon, QPixmap, QPalette, QFont, QFontDatabase 
 from PyQt5.QtCore import *
 
 class MainWindow(QWidget): 
@@ -26,16 +26,18 @@ class MainWindow(QWidget):
         p.setColor(self.backgroundRole(), Qt.black)
         self.setPalette(p)  
 
+        QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
+
         torqueFont = QFont()
         torqueFont.setPointSize(50)
 
-        speedFont = QFont()
+        speedFont = QFont("DS-Digital")
         speedFont.setPointSize(80)
 
-        shutdownFont = QFont()
+        shutdownFont = QFont("DS-Digital")
         shutdownFont.setPointSize(100)
 
-        batteryLevelFont = QFont()
+        batteryLevelFont = QFont("DS-Digital")
         batteryLevelFont.setPointSize(80)
 
         self.speed = QLabel("Speed", self)
@@ -225,7 +227,7 @@ class MainWindow(QWidget):
 
     ## For labels that require the showing of values, this method updates labels
     def changeTextAndValue(self, values):
-        self.batteryLevel.setText("Battery Level: " + str(values[1]))
+        self.batteryLevel.setText("SOC: " + str(values[1]) + "%")
         self.speed.setText(str(values[0]) + "<sub>km/h</sub>")
         self.batteryTemperature.setValue(values[2])
         self.motorTemperatureLeftFront.setValue(values[3])
@@ -287,3 +289,5 @@ class MainWindow(QWidget):
 
         self.groupBox.setLayout(layout)
     ##
+
+    

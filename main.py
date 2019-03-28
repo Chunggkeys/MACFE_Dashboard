@@ -18,6 +18,7 @@ def main():
     
     sys.exit(app.exec_())
 
+    ##p.updateGUI(variables)
 
 main()
     
