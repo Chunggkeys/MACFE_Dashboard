@@ -26,31 +26,39 @@ class MainWindow(QWidget):
         p.setColor(self.backgroundRole(), Qt.black)
         self.setPalette(p)  
 
+        progressBarWidthScale = 1.1
+        motorTemperatureTextState = False
+
         QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
+
+        labelFont = QFont("DS-Digital")
 
         torqueFont = QFont()
         torqueFont.setPointSize(50)
 
         speedFont = QFont("DS-Digital")
-        speedFont.setPointSize(80)
+        speedFont.setPointSize(20)
 
         shutdownFont = QFont("DS-Digital")
         shutdownFont.setPointSize(100)
 
         batteryLevelFont = QFont("DS-Digital")
-        batteryLevelFont.setPointSize(80)
+        batteryLevelFont.setPointSize(90)
 
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
         self.speed.setFont(speedFont)
-        self.speed.setStyleSheet("color: white")
+        # self.speed.setStyleSheet("color: white")
+        self.speed.setStyleSheet("QLabel {background-color: green}")
 
         self.batteryTemperature = QProgressBar(self)
+        self.batteryTemperature.setFixedHeight(progressBarWidthScale*self.batteryTemperature.width())
         self.batteryTemperature.setMaximum(100)
         self.batteryTemperature.setMinimum(0)
         self.batteryTemperature.setTextVisible(False)
 
         self.batteryTemperatureLabel = QLabel("Battery Temperature", self)
+        self.batteryTemperatureLabel.setFont(labelFont)
         self.batteryTemperatureLabel.setAlignment(Qt.AlignCenter)
         self.batteryTemperatureLabel.setStyleSheet("color: white")
 
@@ -62,46 +70,58 @@ class MainWindow(QWidget):
         self.batteryTemperatureError = QLabel("Battery Temp Icon", self)
         self.batteryTemperatureError.setAlignment(Qt.AlignCenter)
 
-        self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
+        # self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
 
         self.motorTemperatureLeftFront = QProgressBar(self)
+        self.motorTemperatureLeftFront.setTextVisible(motorTemperatureTextState)
         self.motorTemperatureLeftFront.setOrientation(Qt.Vertical)
+        self.motorTemperatureLeftFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftFront.width())
         self.motorTemperatureLeftFront.setMaximum(100)
         self.motorTemperatureLeftFront.setMinimum(0)
 
         self.motorTemperatureError = QLabel("Motor Temp Icon", self)
         self.motorTemperatureError.setAlignment(Qt.AlignCenter)
 
-        self.motorTemperatureIcon = QPixmap('icons/iconJPGFiles/motorTempRed.jpg')
+        # self.motorTemperatureIcon = QPixmap('icons/iconJPGFiles/motorTempRed.jpg')
 
         self.motorTemperatureRightFront = QProgressBar(self)
+        self.motorTemperatureRightFront.setTextVisible(motorTemperatureTextState)
         self.motorTemperatureRightFront.setOrientation(Qt.Vertical)
+        self.motorTemperatureRightFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightFront.width())
         self.motorTemperatureRightFront.setMaximum(100)
         self.motorTemperatureRightFront.setMinimum(0)
 
         self.motorTemperatureLeftRear = QProgressBar(self)
+        self.motorTemperatureLeftRear.setTextVisible(motorTemperatureTextState)
         self.motorTemperatureLeftRear.setOrientation(Qt.Vertical)
+        self.motorTemperatureLeftRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftRear.width())
         self.motorTemperatureLeftRear.setMaximum(100)
         self.motorTemperatureLeftRear.setMinimum(0)
 
         self.motorTemperatureRightRear = QProgressBar(self)
+        self.motorTemperatureRightRear.setTextVisible(motorTemperatureTextState)
         self.motorTemperatureRightRear.setOrientation(Qt.Vertical)
+        self.motorTemperatureRightRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightRear.width())
         self.motorTemperatureRightRear.setMaximum(100)
         self.motorTemperatureRightRear.setMinimum(0)
 
         self.motorTemperatureLabel = QLabel("Motor Temperatures", self)
+        self.motorTemperatureLabel.setFont(labelFont)
         self.motorTemperatureLabel.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLabel.setStyleSheet("color: white")
 
         self.highVoltReady = QLabel("HV", self)
+        self.highVoltReady.setFont(labelFont)
         self.highVoltReady.setAlignment(Qt.AlignCenter)
         self.highVoltReady.setStyleSheet("color: white")
         
         self.lowVoltReady = QLabel("LV", self)
+        self.lowVoltReady.setFont(labelFont)
         self.lowVoltReady.setAlignment(Qt.AlignCenter)
         self.lowVoltReady.setStyleSheet("color: white")
 
         self.readyLabel = QLabel("Startup Status", self)
+        self.readyLabel.setFont(labelFont)
         self.readyLabel.setAlignment(Qt.AlignCenter)
         self.readyLabel.setStyleSheet('color: white')
     
@@ -109,9 +129,10 @@ class MainWindow(QWidget):
         self.shutdown.setAlignment(Qt.AlignCenter)
         self.shutdownIcon = QPixmap('icons/shutdown.jpeg')
 
-        self.outputLog = QLabel("Output log", self)
-        self.outputLog.setAlignment(Qt.AlignCenter)
-        self.outputLog.setStyleSheet("QLabel {background-color: green}")
+        self.maxPowerAvailable = QLabel("Max Power Available", self)
+        self.maxPowerAvailable.setAlignment(Qt.AlignCenter)
+        self.maxPowerAvailable.setFont(labelFont)
+        self.maxPowerAvailable.setStyleSheet("QLabel {background-color: green}")
 
         self.createGrid()
 
@@ -125,19 +146,19 @@ class MainWindow(QWidget):
         
         self.progressBarColors(values)
 
-        if values[2] > 70:
-            w1 = self.batteryTemperatureError.width()
-            h1 = self.batteryTemperatureError.height()
-            self.batteryTemperatureError.setPixmap(self.batteryTemperatureIcon.scaled(w1,h1,Qt.KeepAspectRatio))
-        else:
-            self.batteryTemperatureError.clear()
+        # if values[2] > 70:
+        #     w1 = self.batteryTemperatureError.width()
+        #     h1 = self.batteryTemperatureError.height()
+        #     self.batteryTemperatureError.setPixmap(self.batteryTemperatureIcon.scaled(w1,h1,Qt.KeepAspectRatio))
+        # else:
+        #     self.batteryTemperatureError.clear()
         
-        if values[3] > 80 or values[4] > 80 or values[5] > 80 or values[6] > 80:
-            w2 = self.motorTemperatureError.width()
-            h2 = self.motorTemperatureError.height()
-            self.motorTemperatureError.setPixmap(self.motorTemperatureIcon.scaled(w2,h2,Qt.KeepAspectRatio))
-        else:
-            self.motorTemperatureError.clear()
+        # if values[3] > 80 or values[4] > 80 or values[5] > 80 or values[6] > 80:
+        #     w2 = self.motorTemperatureError.width()
+        #     h2 = self.motorTemperatureError.height()
+        #     self.motorTemperatureError.setPixmap(self.motorTemperatureIcon.scaled(w2,h2,Qt.KeepAspectRatio))
+        # else:
+        #     self.motorTemperatureError.clear()
         
         if values[9] == 1:
             self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
@@ -256,7 +277,7 @@ class MainWindow(QWidget):
                 elif rows == 3 and cols == 0:
                     layout.addWidget(self.batteryLevel,rows,cols,6,7)
                 elif rows == 10 and cols == 0:
-                    layout.addWidget(self.speed,rows,cols,4,7)
+                    layout.addWidget(self.maxPowerAvailable,rows,cols,4,7)
                 elif rows == 4 and cols == 8:
                     layout.addWidget(self.motorTemperatureError,rows,cols,2,2)
                 elif rows == 0 and cols == 12:
@@ -280,7 +301,7 @@ class MainWindow(QWidget):
                 # elif rows == 10 and cols == 14:
                 #     layout.addWidget(self.lowVoltReady,rows,cols)
                 elif rows == 12 and cols == 8:
-                    layout.addWidget(self.outputLog,rows,cols,2,7)
+                    layout.addWidget(self.speed,rows,cols,2,7)
                 else:
                     # layout.addWidget(self.blankLabel, rows, cols)
                     layout.addWidget(QLabel("",self),rows,cols)
