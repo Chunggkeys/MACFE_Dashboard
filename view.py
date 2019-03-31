@@ -27,7 +27,7 @@ class MainWindow(QWidget):
         self.setPalette(p)  
 
         progressBarWidthScale = 1.1
-        motorTemperatureTextState = False
+        progressBarTextState = False
 
         QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
 
@@ -37,7 +37,7 @@ class MainWindow(QWidget):
         torqueFont.setPointSize(50)
 
         speedFont = QFont("DS-Digital")
-        speedFont.setPointSize(20)
+        speedFont.setPointSize(40)
 
         shutdownFont = QFont("DS-Digital")
         shutdownFont.setPointSize(100)
@@ -48,8 +48,7 @@ class MainWindow(QWidget):
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
         self.speed.setFont(speedFont)
-        # self.speed.setStyleSheet("color: white")
-        self.speed.setStyleSheet("QLabel {background-color: green}")
+        self.speed.setStyleSheet("color: white")
 
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setFixedHeight(progressBarWidthScale*self.batteryTemperature.width())
@@ -73,7 +72,7 @@ class MainWindow(QWidget):
         # self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
 
         self.motorTemperatureLeftFront = QProgressBar(self)
-        self.motorTemperatureLeftFront.setTextVisible(motorTemperatureTextState)
+        self.motorTemperatureLeftFront.setTextVisible(progressBarTextState)
         self.motorTemperatureLeftFront.setOrientation(Qt.Vertical)
         self.motorTemperatureLeftFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftFront.width())
         self.motorTemperatureLeftFront.setMaximum(100)
@@ -85,21 +84,21 @@ class MainWindow(QWidget):
         # self.motorTemperatureIcon = QPixmap('icons/iconJPGFiles/motorTempRed.jpg')
 
         self.motorTemperatureRightFront = QProgressBar(self)
-        self.motorTemperatureRightFront.setTextVisible(motorTemperatureTextState)
+        self.motorTemperatureRightFront.setTextVisible(progressBarTextState)
         self.motorTemperatureRightFront.setOrientation(Qt.Vertical)
         self.motorTemperatureRightFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightFront.width())
         self.motorTemperatureRightFront.setMaximum(100)
         self.motorTemperatureRightFront.setMinimum(0)
 
         self.motorTemperatureLeftRear = QProgressBar(self)
-        self.motorTemperatureLeftRear.setTextVisible(motorTemperatureTextState)
+        self.motorTemperatureLeftRear.setTextVisible(progressBarTextState)
         self.motorTemperatureLeftRear.setOrientation(Qt.Vertical)
         self.motorTemperatureLeftRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftRear.width())
         self.motorTemperatureLeftRear.setMaximum(100)
         self.motorTemperatureLeftRear.setMinimum(0)
 
         self.motorTemperatureRightRear = QProgressBar(self)
-        self.motorTemperatureRightRear.setTextVisible(motorTemperatureTextState)
+        self.motorTemperatureRightRear.setTextVisible(progressBarTextState)
         self.motorTemperatureRightRear.setOrientation(Qt.Vertical)
         self.motorTemperatureRightRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightRear.width())
         self.motorTemperatureRightRear.setMaximum(100)
@@ -129,10 +128,16 @@ class MainWindow(QWidget):
         self.shutdown.setAlignment(Qt.AlignCenter)
         self.shutdownIcon = QPixmap('icons/shutdown.jpeg')
 
-        self.maxPowerAvailable = QLabel("Max Power Available", self)
-        self.maxPowerAvailable.setAlignment(Qt.AlignCenter)
-        self.maxPowerAvailable.setFont(labelFont)
-        self.maxPowerAvailable.setStyleSheet("QLabel {background-color: green}")
+        self.maxPowerLabel = QLabel("Max Power Available")
+        self.maxPowerLabel.setAlignment(Qt.AlignCenter)
+        self.maxPowerLabel.setFont(labelFont)
+        self.maxPowerLabel.setStyleSheet("color: white")
+
+        self.maxPowerAvailable = QProgressBar(self)
+        self.maxPowerAvailable.setFixedHeight(progressBarWidthScale*self.maxPowerAvailable.width())
+        self.maxPowerAvailable.setMaximum(100)
+        self.maxPowerAvailable.setMinimum(0)
+        self.maxPowerAvailable.setTextVisible(progressBarTextState)
 
         self.createGrid()
 
@@ -237,6 +242,17 @@ class MainWindow(QWidget):
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.green)
+
+        if values[8] > 80: 
+            self.changeProgressBarColor(self.maxPowerAvailable, QtCore.Qt.red)
+        elif values[8] > 60:
+            self.changeProgressBarColor(self.maxPowerAvailable, QtGui.QColor(255,143,15))
+        elif values[8] > 40:
+            self.changeProgressBarColor(self.maxPowerAvailable, QtCore.Qt.yellow)
+        elif values[8] > 20:    
+            self.changeProgressBarColor(self.maxPowerAvailable, QtGui.QColor(226,255,41,255))
+        else:
+            self.changeProgressBarColor(self.maxPowerAvailable, QtCore.Qt.green)
     ##
 
     ## Change progress bar color
@@ -255,6 +271,7 @@ class MainWindow(QWidget):
         self.motorTemperatureRightFront.setValue(values[4])
         self.motorTemperatureLeftRear.setValue(values[5])
         self.motorTemperatureRightRear.setValue(values[6])
+        self.maxPowerAvailable.setValue(values[8])
     ##
 
     ## Defines the grid of the UI and inserts widgets onto coordinates
@@ -277,6 +294,8 @@ class MainWindow(QWidget):
                 elif rows == 3 and cols == 0:
                     layout.addWidget(self.batteryLevel,rows,cols,6,7)
                 elif rows == 10 and cols == 0:
+                    layout.addWidget(self.maxPowerLabel,rows,cols,1,7)
+                elif rows == 11 and cols == 0:
                     layout.addWidget(self.maxPowerAvailable,rows,cols,4,7)
                 elif rows == 4 and cols == 8:
                     layout.addWidget(self.motorTemperatureError,rows,cols,2,2)
