@@ -32,12 +32,13 @@ class MainWindow(QWidget):
         QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
 
         labelFont = QFont("DS-Digital")
+        labelFont.setPointSize(15)
 
         torqueFont = QFont()
         torqueFont.setPointSize(50)
 
         speedFont = QFont("DS-Digital")
-        speedFont.setPointSize(40)
+        speedFont.setPointSize(90)
 
         shutdownFont = QFont("DS-Digital")
         shutdownFont.setPointSize(100)
@@ -112,12 +113,14 @@ class MainWindow(QWidget):
         self.highVoltReady = QLabel("HV", self)
         self.highVoltReady.setFont(labelFont)
         self.highVoltReady.setAlignment(Qt.AlignCenter)
-        self.highVoltReady.setStyleSheet("color: white")
+        self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
+        # self.highVoltReady.setStyleSheet("color: white")
         
         self.lowVoltReady = QLabel("LV", self)
         self.lowVoltReady.setFont(labelFont)
         self.lowVoltReady.setAlignment(Qt.AlignCenter)
-        self.lowVoltReady.setStyleSheet("color: white")
+        self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
+        # self.lowVoltReady.setStyleSheet("color: white")
 
         self.readyLabel = QLabel("Startup Status", self)
         self.readyLabel.setFont(labelFont)
@@ -309,15 +312,15 @@ class MainWindow(QWidget):
                     layout.addWidget(self.motorTemperatureLeftRear,rows,cols,3,1)
                 elif rows == 5 and cols == 14:
                     layout.addWidget(self.motorTemperatureRightRear,rows,cols,3,1)
-                elif rows == 9 and cols == 12:
-                    layout.addWidget(self.readyLabel,rows,cols,1,3)
-                elif rows == 10 and cols == 12:
-                    layout.addLayout(subLayout,rows,cols,1,3)
+                elif rows == 0 and cols == 9:
+                    layout.addWidget(self.readyLabel,rows,cols,1,2)
+                elif rows == 1 and cols == 9:
+                    layout.addLayout(subLayout,rows,cols,3,2)
                     subLayout.addWidget(self.highVoltReady,0,0)
-                    subLayout.addWidget(self.lowVoltReady,0,1)
-                # elif rows == 10 and cols == 12:
+                    subLayout.addWidget(self.lowVoltReady,1,0)
+                # elif rows == 1 and cols == 9:
                 #     layout.addWidget(self.highVoltReady,rows,cols)
-                # elif rows == 10 and cols == 14:
+                # elif rows == 2 and cols == 9:
                 #     layout.addWidget(self.lowVoltReady,rows,cols)
                 elif rows == 12 and cols == 8:
                     layout.addWidget(self.speed,rows,cols,2,7)
