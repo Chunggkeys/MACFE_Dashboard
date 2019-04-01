@@ -154,20 +154,6 @@ class MainWindow(QWidget):
         
         self.progressBarColors(values)
 
-        # if values[2] > 70:
-        #     w1 = self.batteryTemperatureError.width()
-        #     h1 = self.batteryTemperatureError.height()
-        #     self.batteryTemperatureError.setPixmap(self.batteryTemperatureIcon.scaled(w1,h1,Qt.KeepAspectRatio))
-        # else:
-        #     self.batteryTemperatureError.clear()
-        
-        # if values[3] > 80 or values[4] > 80 or values[5] > 80 or values[6] > 80:
-        #     w2 = self.motorTemperatureError.width()
-        #     h2 = self.motorTemperatureError.height()
-        #     self.motorTemperatureError.setPixmap(self.motorTemperatureIcon.scaled(w2,h2,Qt.KeepAspectRatio))
-        # else:
-        #     self.motorTemperatureError.clear()
-        
         if values[9] == 1:
             self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
         else:
@@ -325,7 +311,6 @@ class MainWindow(QWidget):
                 elif rows == 12 and cols == 8:
                     layout.addWidget(self.speed,rows,cols,2,7)
                 else:
-                    # layout.addWidget(self.blankLabel, rows, cols)
                     layout.addWidget(QLabel("",self),rows,cols)
                 cols += 1
             rows += 1
