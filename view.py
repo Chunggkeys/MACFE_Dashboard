@@ -32,7 +32,7 @@ class MainWindow(QWidget):
         QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
 
         labelFont = QFont("DS-Digital")
-        labelFont.setPointSize(15)
+        labelFont.setPointSize(18)
 
         torqueFont = QFont()
         torqueFont.setPointSize(50)
@@ -113,14 +113,12 @@ class MainWindow(QWidget):
         self.highVoltReady = QLabel("HV", self)
         self.highVoltReady.setFont(labelFont)
         self.highVoltReady.setAlignment(Qt.AlignCenter)
-        self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
-        # self.highVoltReady.setStyleSheet("color: white")
+        self.highVoltReady.setStyleSheet("color: white")
         
         self.lowVoltReady = QLabel("LV", self)
         self.lowVoltReady.setFont(labelFont)
         self.lowVoltReady.setAlignment(Qt.AlignCenter)
-        self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
-        # self.lowVoltReady.setStyleSheet("color: white")
+        self.lowVoltReady.setStyleSheet("color: white")
 
         self.readyLabel = QLabel("Startup Status", self)
         self.readyLabel.setFont(labelFont)
@@ -232,13 +230,13 @@ class MainWindow(QWidget):
         else:
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.green)
 
-        if values[8] > 80: 
+        if values[8] < 20: 
             self.changeProgressBarColor(self.maxPowerAvailable, QtCore.Qt.red)
-        elif values[8] > 60:
+        elif values[8] < 40:
             self.changeProgressBarColor(self.maxPowerAvailable, QtGui.QColor(255,143,15))
-        elif values[8] > 40:
+        elif values[8] < 60:
             self.changeProgressBarColor(self.maxPowerAvailable, QtCore.Qt.yellow)
-        elif values[8] > 20:    
+        elif values[8] < 80:    
             self.changeProgressBarColor(self.maxPowerAvailable, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.maxPowerAvailable, QtCore.Qt.green)
@@ -269,6 +267,7 @@ class MainWindow(QWidget):
         self.groupBox = QGroupBox()
         layout = QGridLayout()
         subLayout = QGridLayout()
+        motorLayout = QGridLayout()
 
         rows = 0
         while rows < 15:
@@ -291,13 +290,20 @@ class MainWindow(QWidget):
                 elif rows == 0 and cols == 12:
                     layout.addWidget(self.motorTemperatureLabel,rows,cols,1,3)
                 elif rows == 1 and cols == 12:
-                    layout.addWidget(self.motorTemperatureLeftFront,rows,cols,3,1)
-                elif rows == 1 and cols == 14:
-                    layout.addWidget(self.motorTemperatureRightFront,rows,cols,3,1)
-                elif rows == 5 and cols == 12:
-                    layout.addWidget(self.motorTemperatureLeftRear,rows,cols,3,1)
-                elif rows == 5 and cols == 14:
-                    layout.addWidget(self.motorTemperatureRightRear,rows,cols,3,1)
+                    layout.addLayout(motorLayout,rows,cols,7,3)
+                    motorLayout.addWidget(self.motorTemperatureLeftFront,0,0,3,1)
+                    motorLayout.addWidget(self.motorTemperatureRightFront,0,2,3,1)
+                    motorLayout.addWidget(QLabel("",self),3,0,1,3)
+                    motorLayout.addWidget(self.motorTemperatureLeftRear,4,0,3,1)
+                    motorLayout.addWidget(self.motorTemperatureRightRear,4,2,3,1)
+                # elif rows == 1 and cols == 12:
+                #     layout.addWidget(self.motorTemperatureLeftFront,rows,cols,3,1)
+                # elif rows == 1 and cols == 14:
+                #     layout.addWidget(self.motorTemperatureRightFront,rows,cols,3,1)
+                # elif rows == 5 and cols == 12:
+                #     layout.addWidget(self.motorTemperatureLeftRear,rows,cols,3,1)
+                # elif rows == 5 and cols == 14:
+                #     layout.addWidget(self.motorTemperatureRightRear,rows,cols,3,1)
                 elif rows == 0 and cols == 9:
                     layout.addWidget(self.readyLabel,rows,cols,1,2)
                 elif rows == 1 and cols == 9:
