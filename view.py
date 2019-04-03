@@ -282,7 +282,7 @@ class MainWindow(QWidget):
                 elif rows == 1 and cols == 8:
                     layout.addWidget(self.batteryTemperatureError,rows,cols,2,2)
                 elif rows == 3 and cols == 0:
-                    layout.addWidget(self.batteryLevel,rows,cols,6,7)
+                    layout.addWidget(self.batteryLevel,rows,cols,8,7)
                 elif rows == 11 and cols == 0:
                     layout.addLayout(maxPowerAvailableLayout,rows,cols,3,7)
                     maxPowerAvailableLayout.addWidget(self.maxPowerLabel,0,0,1,7)
