@@ -268,23 +268,25 @@ class MainWindow(QWidget):
         layout = QGridLayout()
         subLayout = QGridLayout()
         motorLayout = QGridLayout()
+        batteryTemperatureLayout = QGridLayout()
+        maxPowerAvailableLayout = QGridLayout()
 
         rows = 0
         while rows < 15:
             cols = 0
             while cols < 15:
-                if rows == 1 and cols == 0:
-                    layout.addWidget(self.batteryTemperature, rows, cols,1,7)
+                if rows == 0 and cols == 0:
+                    layout.addLayout(batteryTemperatureLayout,rows,cols,3,7)
+                    batteryTemperatureLayout.addWidget(self.batteryTemperatureLabel,0,0,1,7)
+                    batteryTemperatureLayout.addWidget(self.batteryTemperature,2,0,1,7)
                 elif rows == 1 and cols == 8:
                     layout.addWidget(self.batteryTemperatureError,rows,cols,2,2)
-                elif rows == 0 and cols == 0:
-                    layout.addWidget(self.batteryTemperatureLabel,rows,cols,1,7)
                 elif rows == 3 and cols == 0:
                     layout.addWidget(self.batteryLevel,rows,cols,6,7)
-                elif rows == 10 and cols == 0:
-                    layout.addWidget(self.maxPowerLabel,rows,cols,1,7)
                 elif rows == 11 and cols == 0:
-                    layout.addWidget(self.maxPowerAvailable,rows,cols,4,7)
+                    layout.addLayout(maxPowerAvailableLayout,rows,cols,3,7)
+                    maxPowerAvailableLayout.addWidget(self.maxPowerLabel,0,0,1,7)
+                    maxPowerAvailableLayout.addWidget(self.maxPowerAvailable,2,0,1,7)
                 elif rows == 4 and cols == 8:
                     layout.addWidget(self.motorTemperatureError,rows,cols,2,2)
                 elif rows == 0 and cols == 12:
@@ -296,24 +298,12 @@ class MainWindow(QWidget):
                     motorLayout.addWidget(QLabel("",self),3,0,1,3)
                     motorLayout.addWidget(self.motorTemperatureLeftRear,4,0,3,1)
                     motorLayout.addWidget(self.motorTemperatureRightRear,4,2,3,1)
-                # elif rows == 1 and cols == 12:
-                #     layout.addWidget(self.motorTemperatureLeftFront,rows,cols,3,1)
-                # elif rows == 1 and cols == 14:
-                #     layout.addWidget(self.motorTemperatureRightFront,rows,cols,3,1)
-                # elif rows == 5 and cols == 12:
-                #     layout.addWidget(self.motorTemperatureLeftRear,rows,cols,3,1)
-                # elif rows == 5 and cols == 14:
-                #     layout.addWidget(self.motorTemperatureRightRear,rows,cols,3,1)
                 elif rows == 0 and cols == 9:
                     layout.addWidget(self.readyLabel,rows,cols,1,2)
                 elif rows == 1 and cols == 9:
                     layout.addLayout(subLayout,rows,cols,3,2)
                     subLayout.addWidget(self.highVoltReady,0,0)
                     subLayout.addWidget(self.lowVoltReady,1,0)
-                # elif rows == 1 and cols == 9:
-                #     layout.addWidget(self.highVoltReady,rows,cols)
-                # elif rows == 2 and cols == 9:
-                #     layout.addWidget(self.lowVoltReady,rows,cols)
                 elif rows == 12 and cols == 8:
                     layout.addWidget(self.speed,rows,cols,2,7)
                 else:
