@@ -1,5 +1,5 @@
 import sys
-from newPresenter import Presenter
+from presenter import Presenter
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QPalette, QFont, QFontDatabase 
