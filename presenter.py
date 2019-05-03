@@ -1,3 +1,5 @@
+## presenter.py is a child thread to view.py and takes info from guiModel by using a listener
+
 from PyQt5 import QtWidgets
 from multiprocessing.connection import Listener
 from PyQt5.QtCore import pyqtSignal, QThread
@@ -16,6 +18,7 @@ class Presenter(QThread):
         
         self.connection = self.listener.accept()
         
+        ## Starts listener and emits signal to update GUI when data is received
         while 1:    
             data = self.connection.recv()
             self.updateSignal.emit(data)

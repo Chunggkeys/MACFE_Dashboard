@@ -6,6 +6,41 @@ from PyQt5.QtGui import QIcon, QPixmap, QPalette, QFont, QFontDatabase
 from PyQt5.QtCore import *
 from PyQt5 import *
 
+
+class ShutdownWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+    
+        self.initUI()
+    
+    def initUI(self):
+        self.setWindowState(QtCore.Qt.WindowMaximized)
+        self.setWindowTitle("ERROR")
+
+        p = self.palette()
+        p.setColor(self.backgroundRole(), Qt.blue)
+        self.setPalette(p)
+        
+        self.font = QFont()
+        self.font.setPointSize(150)
+
+        self.label = QLabel("Error", self)
+        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setStyleSheet("color: red")
+        self.label.setFont(self.font)
+    
+        self.groupBox = QGroupBox()
+        self.layout = QGridLayout()
+
+        self.layout.addWidget(self.label,0,0)
+        self.groupBox.setLayout(self.layout)
+
+        box = QVBoxLayout()
+        box.addWidget(self.groupBox)
+        self.setLayout(box)
+
+        
 class MainWindow(QWidget): 
 
     ## Signal definition
@@ -157,8 +192,6 @@ class MainWindow(QWidget):
         # self.maxPowerAvailable.setMinimumHeight(0)
         # self.maxPowerAvailable.setMinimumWidth(0)
 
-        print(self.height(), self.width())
-
         self.createGrid()
 
         box = QVBoxLayout()
@@ -184,14 +217,20 @@ class MainWindow(QWidget):
             self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
             self.lowVoltReady.setStyleSheet("color: white")
         
-        # if int(values[8]) == 1:
-        #     self.shutdown.setPixmap(self.shutdownIcon)
-        # else:
-        #     self.shutdown.clear()
+        if data.getShutdown() == 1:
+            self.systemShutdown()
 
         self.changeTextAndValue(data)
     ##
 
+    ## Opens Error GUI
+    def systemShutdown(self):
+
+        self.hide()
+        self.shutdownWindow = ShutdownWindow()
+        self.shutdownWindow.show()
+    ##
+    
     ## Method dedicated to process Motor Temperature values and change progress bar
     def progressBarColors(self,data):
 
