@@ -15,7 +15,7 @@ class ShutdownWindow(QWidget):
         self.initUI()
     
     def initUI(self):
-        self.setWindowState(QtCore.Qt.WindowMaximized)
+        # self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("ERROR")
 
         p = self.palette()
@@ -61,7 +61,7 @@ class MainWindow(QWidget):
     def initUI(self):
         
         ## Appearance of UI
-        self.setWindowState(QtCore.Qt.WindowMaximized)
+        # self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("Dashboard")
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.black)
@@ -228,6 +228,7 @@ class MainWindow(QWidget):
 
         self.hide()
         self.shutdownWindow = ShutdownWindow()
+        self.shutdownWindow.showMaximized()
         self.shutdownWindow.show()
     ##
     
@@ -380,6 +381,7 @@ app.setStyle('Fusion')
 p = Presenter()
 
 window = MainWindow(p)
+window.showMaximized()
 window.show()
 
 sys.exit(app.exec_())
