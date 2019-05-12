@@ -242,7 +242,6 @@ class MainWindow(QWidget):
         elif data.getBatteryTemperature() > 40:
             self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.yellow)
         elif data.getBatteryTemperature() > 20:
-            print("hi")    
             self.changeProgressBarColor(self.batteryTemperature, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.green)

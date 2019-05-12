@@ -24,6 +24,5 @@ class Presenter(QThread):
             self.updateSignal.emit(data)
             if data.getShutdown() == 1:
                 self.connection.close()
-
-    # def updateGUI(self,data):
-    #     self.mainWindow.processValues(data)
+        
+        

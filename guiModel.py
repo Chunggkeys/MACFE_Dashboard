@@ -82,9 +82,9 @@ class guiModel:
 
 data = guiModel()
 
-address = ('localhost', 6000)
+address = ('localhost', 6000)    
 client = Client(address, authkey=None)
-
+    
 def setSpeed(speed):
     data.setSpeed(speed)
     resource.acquire()
