@@ -6,6 +6,7 @@ print("running")
 
 def changeValues():
     threading.Timer(2.0, changeValues).start()
+    
     gm.setBatteryLevel(r.randint(1,101))
     gm.setBatteryTemperature(r.randint(1,101))
     gm.setHV(r.randint(0,2))
