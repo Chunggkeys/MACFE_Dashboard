@@ -25,4 +25,5 @@ class Presenter(QThread):
             if data.getShutdown() == 1:
                 self.connection.close()
         
+
         

@@ -1,3 +1,5 @@
 python3 view.py &
 
-gnome-terminal -e python3 &
+sleep 2
+
+python3 testScript.py &
