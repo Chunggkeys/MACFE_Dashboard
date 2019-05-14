@@ -5,8 +5,12 @@ import random as r
 print("running")
 
 def changeValues():
-    threading.Timer(2.0, changeValues).start()
     
+    ## Recursively executes changeValues in 2 second intervals
+    threading.Timer(2.0, changeValues).start()
+    ##
+    
+    ## Changes values of guiModel instance
     gm.setBatteryLevel(r.randint(1,101))
     gm.setBatteryTemperature(r.randint(1,101))
     gm.setHV(r.randint(0,2))
@@ -18,6 +22,7 @@ def changeValues():
     gm.setMotorTemperatureOne(r.randint(1,101))
     # gm.setShutdown(r.randint(0,2))
     gm.setSpeed(r.randint(1,500))
+    ##
 
 changeValues()
 

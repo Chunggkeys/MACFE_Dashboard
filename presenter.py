@@ -5,14 +5,20 @@ from multiprocessing.connection import Listener
 from PyQt5.QtCore import pyqtSignal, QThread
 import sys
 
+## Child thread to view.py, accepts data through socket and passes to view
 class Presenter(QThread):
 
+    ## Signal to send to view.py
     updateSignal = pyqtSignal(object)
+    ##
     
     def __init__(self):
         super().__init__()
+
+        ## Initializes and runs listener, MUST BE INITIALIZED BEFORE CLIENT
         self.address = ('localhost', 6000)
         self.listener = Listener(self.address, authkey=None)
+        ##
 
     def run(self):
         
@@ -23,7 +29,11 @@ class Presenter(QThread):
             data = self.connection.recv()
             self.updateSignal.emit(data)
             if data.getShutdown() == 1:
-                self.connection.close()
+
+                ## Closes connection on shutdown
+                self.connection.close() 
+                ##
+##
         
 
         

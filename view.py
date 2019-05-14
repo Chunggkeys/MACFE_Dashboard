@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon, QPixmap, QPalette, QFont, QFontDatabase
 from PyQt5.QtCore import *
 from PyQt5 import *
 
-
+##Error Window class
 class ShutdownWindow(QWidget):
 
     def __init__(self):
@@ -39,6 +39,7 @@ class ShutdownWindow(QWidget):
         box = QVBoxLayout()
         box.addWidget(self.groupBox)
         self.setLayout(box)
+##
 
         
 class MainWindow(QWidget): 
@@ -61,7 +62,6 @@ class MainWindow(QWidget):
     def initUI(self):
         
         ## Appearance of UI
-        # self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("Dashboard")
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.black)
@@ -98,8 +98,6 @@ class MainWindow(QWidget):
         self.batteryTemperature.setMaximum(100)
         self.batteryTemperature.setMinimum(0)
         self.batteryTemperature.setTextVisible(False)
-        # self.batteryTemperature.setMinimumHeight(0)
-        # self.batteryTemperature.setMinimumWidth(0)
         
         self.batteryTemperatureLabel = QLabel("Battery Temperature", self)
         self.batteryTemperatureLabel.setFont(labelFont)
@@ -114,16 +112,12 @@ class MainWindow(QWidget):
         self.batteryTemperatureError = QLabel("Battery Temp Icon", self)
         self.batteryTemperatureError.setAlignment(Qt.AlignCenter)
 
-        # self.batteryTemperatureIcon = QPixmap('icons/iconJPGFiles/batteryTempRed.jpg')
-
         self.motorTemperatureLeftFront = QProgressBar(self)
         self.motorTemperatureLeftFront.setTextVisible(progressBarTextState)
         self.motorTemperatureLeftFront.setOrientation(Qt.Vertical)
         self.motorTemperatureLeftFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftFront.width())
         self.motorTemperatureLeftFront.setMaximum(100)
         self.motorTemperatureLeftFront.setMinimum(0)
-        # self.motorTemperatureLeftFront.setMinimumWidth(0)
-        # self.motorTemperatureLeftFront.setMinimumHeight(0)
 
         self.motorTemperatureError = QLabel("Motor Temp Icon", self)
         self.motorTemperatureError.setAlignment(Qt.AlignCenter)
@@ -134,8 +128,6 @@ class MainWindow(QWidget):
         self.motorTemperatureRightFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightFront.width())
         self.motorTemperatureRightFront.setMaximum(100)
         self.motorTemperatureRightFront.setMinimum(0)
-        # self.motorTemperatureRightFront.setMinimumWidth(0)
-        # self.motorTemperatureRightFront.setMinimumHeight(0)
 
         self.motorTemperatureLeftRear = QProgressBar(self)
         self.motorTemperatureLeftRear.setTextVisible(progressBarTextState)
@@ -143,8 +135,6 @@ class MainWindow(QWidget):
         self.motorTemperatureLeftRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftRear.width())
         self.motorTemperatureLeftRear.setMaximum(100)
         self.motorTemperatureLeftRear.setMinimum(0)
-        # self.motorTemperatureLeftRear.setMinimumHeight(0)
-        # self.motorTemperatureLeftRear.setMinimumWidth(0)
 
         self.motorTemperatureRightRear = QProgressBar(self)
         self.motorTemperatureRightRear.setTextVisible(progressBarTextState)
@@ -152,8 +142,6 @@ class MainWindow(QWidget):
         self.motorTemperatureRightRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightRear.width())
         self.motorTemperatureRightRear.setMaximum(100)
         self.motorTemperatureRightRear.setMinimum(0)
-        # self.motorTemperatureRightRear.setMinimumWidth(0)
-        # self.motorTemperatureRightRear.setMinimumHeight(0)
 
         self.motorTemperatureLabel = QLabel("Motor Temperatures", self)
         self.motorTemperatureLabel.setFont(labelFont)
@@ -189,8 +177,6 @@ class MainWindow(QWidget):
         self.maxPowerAvailable.setMaximum(100)
         self.maxPowerAvailable.setMinimum(0)
         self.maxPowerAvailable.setTextVisible(progressBarTextState)
-        # self.maxPowerAvailable.setMinimumHeight(0)
-        # self.maxPowerAvailable.setMinimumWidth(0)
 
         self.createGrid()
 
@@ -322,6 +308,7 @@ class MainWindow(QWidget):
     ##
 
     ## Defines the grid of the UI and inserts widgets onto coordinates
+    #  Note that size of widgets are adjusted dynamically by QT based on dimensions of GUI
     def createGrid(self):
 
         self.groupBox = QGroupBox()
