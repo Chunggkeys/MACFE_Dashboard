@@ -72,6 +72,9 @@ class MainWindow(QWidget):
         progressBarWidthScale = 1.1
         progressBarTextState = False
 
+        motorTemperatureMinimum = -20
+        motorTemperatureMaximum = 235
+
         QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
 
         labelFont = QFont("DS-Digital")
@@ -117,8 +120,8 @@ class MainWindow(QWidget):
         self.motorTemperatureLeftFront.setTextVisible(progressBarTextState)
         self.motorTemperatureLeftFront.setOrientation(Qt.Vertical)
         self.motorTemperatureLeftFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftFront.width())
-        self.motorTemperatureLeftFront.setMaximum(100)
-        self.motorTemperatureLeftFront.setMinimum(0)
+        self.motorTemperatureLeftFront.setMaximum(motorTemperatureMaximum)
+        self.motorTemperatureLeftFront.setMinimum(motorTemperatureMinimum)
 
         self.motorTemperatureError = QLabel("Motor Temp Icon", self)
         self.motorTemperatureError.setAlignment(Qt.AlignCenter)
@@ -127,22 +130,22 @@ class MainWindow(QWidget):
         self.motorTemperatureRightFront.setTextVisible(progressBarTextState)
         self.motorTemperatureRightFront.setOrientation(Qt.Vertical)
         self.motorTemperatureRightFront.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightFront.width())
-        self.motorTemperatureRightFront.setMaximum(100)
-        self.motorTemperatureRightFront.setMinimum(0)
+        self.motorTemperatureRightFront.setMaximum(motorTemperatureMaximum)
+        self.motorTemperatureRightFront.setMinimum(motorTemperatureMinimum)
 
         self.motorTemperatureLeftRear = QProgressBar(self)
         self.motorTemperatureLeftRear.setTextVisible(progressBarTextState)
         self.motorTemperatureLeftRear.setOrientation(Qt.Vertical)
         self.motorTemperatureLeftRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureLeftRear.width())
-        self.motorTemperatureLeftRear.setMaximum(100)
-        self.motorTemperatureLeftRear.setMinimum(0)
+        self.motorTemperatureLeftRear.setMaximum(motorTemperatureMaximum)
+        self.motorTemperatureLeftRear.setMinimum(motorTemperatureMinimum)
 
         self.motorTemperatureRightRear = QProgressBar(self)
         self.motorTemperatureRightRear.setTextVisible(progressBarTextState)
         self.motorTemperatureRightRear.setOrientation(Qt.Vertical)
         self.motorTemperatureRightRear.setFixedWidth(progressBarWidthScale*self.motorTemperatureRightRear.width())
-        self.motorTemperatureRightRear.setMaximum(100)
-        self.motorTemperatureRightRear.setMinimum(0)
+        self.motorTemperatureRightRear.setMaximum(motorTemperatureMaximum)
+        self.motorTemperatureRightRear.setMinimum(motorTemperatureMinimum)
 
         self.motorTemperatureLabel = QLabel("Motor Temperatures", self)
         self.motorTemperatureLabel.setFont(labelFont)
