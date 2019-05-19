@@ -17,6 +17,7 @@ class ShutdownWindow(QWidget):
     def initUI(self):
         # self.setWindowState(QtCore.Qt.WindowMaximized)
         self.setWindowTitle("ERROR")
+        print("Shutdown")	
 
         p = self.palette()
         p.setColor(self.backgroundRole(), Qt.blue)
@@ -225,7 +226,7 @@ class MainWindow(QWidget):
 
     ## Opens Error GUI
     def systemShutdown(self):
-
+        print("Shutdown")
         self.hide()
         self.shutdownWindow = ShutdownWindow()
         self.shutdownWindow.showMaximized()
@@ -236,7 +237,7 @@ class MainWindow(QWidget):
     def progressBarColors(self,data):
 
         if  data.getBatteryTemperature() > 80: 
-            self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.red)
+            self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.red)       
         elif data.getBatteryTemperature() > 60:
             self.changeProgressBarColor(self.batteryTemperature, QtGui.QColor(255,143,15))
         elif data.getBatteryTemperature() > 40:
