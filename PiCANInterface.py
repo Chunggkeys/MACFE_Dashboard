@@ -55,23 +55,29 @@ try:
                     rightFrontMotorTemperature = message.data[2] - 20
                     rightRearMotorTemperature = message.data[3] - 20
                     speed = message.data[4]
-                    if message.data[5] >= 128:
-                        soc = message.data[5] - 128
-                    else:
-                        soc = message.data[5]
-                    if message.data[5] >= 128 and message.data[6] % 2 != 0:
-                        startupStatus = 3
-                    elif message.data[5] < 128 and message.data[6] % 2 != 0:
-                        startupStatus = 2
-                    elif message.data[5] >= 128 and message.data[6] % 2 == 0:
-                        startupStatus = 1
-                    else:
-                        startupStatus = 0
+##                    if message.data[5] >= 128:
+##                        soc = message.data[5] - 128
+##                    else:
+##                        soc = message.data[5]
+                    tempStartup = message.data[5] >> 7
+                    tempStartup2 = message.data[6] << 1
+                    tempStartup2 = tempStartup2 & 2
+                    startupStatus = tempStartup | tempStartup2
+                    
+                    soc = message.data[5] & 255
+##                    if message.data[5] >= 128 and message.data[6] % 2 != 0:
+##                        startupStatus = 3
+##                    elif message.data[5] < 128 and message.data[6] % 2 != 0:
+##                        startupStatus = 2
+##                    elif message.data[5] >= 128 and message.data[6] % 2 == 0:
+##                        startupStatus = 1
+##                    else:
+##                        startupStatus = 0
                     maxPower = message.data[6] >> 1
                     vcuError = message.data[7]
                     batteryTemperature = 0
                     
-                    print(leftFrontMotorTemperature)
+                    print(startupStatus)
                     
                     gm.setSpeed(speed)
                     gm.setBatteryLevel(soc)
