@@ -49,10 +49,10 @@ try:
                     # Do stuff with dash values
                     ## message.data[0-3] are motor temperatures (LF,LR,RF,RR), respectively
                     ## message.data[4] is vehicle speed
-                    leftFrontMotorTemperature = message.data[0]
-                    leftRearMotorTemperature = message.data[1]
-                    rightFrontMotorTemperature = message.data[2]
-                    rightRearMotorTemperature = message.data[3]
+                    leftFrontMotorTemperature = message.data[0] - 20
+                    leftRearMotorTemperature = message.data[1] - 20
+                    rightFrontMotorTemperature = message.data[2] - 20
+                    rightRearMotorTemperature = message.data[3] - 20
                     speed = message.data[4]
                     if message.data[5] >= 128:
                         soc = message.data[5] - 128
@@ -69,6 +69,8 @@ try:
                     maxPower = message.data[6] >> 1
                     vcuError = message.data[7]
                     batteryTemperature = 0
+                    
+                    print(leftFrontMotorTemperature)
                     
                     gm.setSpeed(speed)
                     gm.setBatteryLevel(soc)
