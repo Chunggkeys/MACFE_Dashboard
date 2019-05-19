@@ -24,9 +24,11 @@ print('Bring up CAN0....')
 os.system("sudo /sbin/ip link set can0 up type can bitrate 500000")
 time.sleep(0.1)
 dashboardID = 502
+filter = [{"can_id": 0x502, "can_mask": 0x7FF, "extended": False}]
 
 try:
 	bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
+	bus.set_filters(filter)
 except OSError:
 	print('Cannot find PiCAN board.')
 	exit()
@@ -37,7 +39,6 @@ prevTime = 0;
 try:
 	while True:
 		message = bus.recv()	# Wait until a message is received.
-		
 		
 		c = '{0:f} {1:x} {2:x} '.format(message.timestamp - prevTime, message.arbitration_id, message.dlc)
 		s=''
