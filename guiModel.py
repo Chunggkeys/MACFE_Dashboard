@@ -3,6 +3,7 @@ from multiprocessing.connection import Client
 
 resource = Semaphore(1)
 
+## Data model to store state of vehicle
 class guiModel:
 
     def __init__(self):
@@ -14,6 +15,7 @@ class guiModel:
         self.mTempFour = 0; self.maxPower = 0
         self.hv = 0; self.lv = 0
     
+    ## Setters for guiModel state variables
     def setSpeed(self,speed):
         self.speed = speed
     
@@ -46,7 +48,9 @@ class guiModel:
     
     def setMaxPower(self,maxPower):
         self.maxPower = maxPower
+    ##
 
+    ## Getters for guiModel state variables
     def getSpeed(self):
         return str(self.speed)
 	
@@ -79,12 +83,17 @@ class guiModel:
 	
     def getLV(self):
         return self.lv
+    ##
+##
 
 data = guiModel()
 
+## Initializes the client, links to listener in presenter.py
 address = ('localhost', 6000)    
 client = Client(address, authkey=None)
-    
+##
+
+## Methods to set and send data object    
 def setSpeed(speed):
     data.setSpeed(speed)
     resource.acquire()
@@ -150,6 +159,7 @@ def setLV(lv):
     resource.acquire()
     client.send(data)
     resource.release()
+##
 
 
     
