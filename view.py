@@ -74,6 +74,7 @@ class MainWindow(QWidget):
 
         motorTemperatureMinimum = -20
         motorTemperatureMaximum = 235
+        self.totalTemperatureDifference = motorTemperatureMaximum - motorTemperatureMinimum
 
         QFontDatabase.addApplicationFont('font/DS-DIGI.TTF')
 
@@ -236,46 +237,46 @@ class MainWindow(QWidget):
         else:
             self.changeProgressBarColor(self.batteryTemperature, QtCore.Qt.green)
         
-        if data.getMotorTemperatureOne() > 80: 
+        if data.getMotorTemperatureOne() > 0.8 * self.totalTemperatureDifference: 
             self.changeProgressBarColor(self.motorTemperatureLeftFront, QtCore.Qt.red)
-        elif data.getMotorTemperatureOne() > 60:
+        elif data.getMotorTemperatureOne() > 0.6*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureLeftFront, QtGui.QColor(255,143,15))
-        elif data.getMotorTemperatureOne() > 40:
+        elif data.getMotorTemperatureOne() > 0.4*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureLeftFront, QtCore.Qt.yellow)
-        elif data.getMotorTemperatureOne() > 20:    
+        elif data.getMotorTemperatureOne() > 0.2*self.totalTemperatureDifference:    
             self.changeProgressBarColor(self.motorTemperatureLeftFront, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.motorTemperatureLeftFront, QtCore.Qt.green)
 
-        if data.getMotorTemperatureTwo() > 80: 
+        if data.getMotorTemperatureTwo() > 0.8 * self.totalTemperatureDifference: 
             self.changeProgressBarColor(self.motorTemperatureRightFront, QtCore.Qt.red)
-        elif data.getMotorTemperatureTwo() > 60:
+        elif data.getMotorTemperatureTwo() > 0.6*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureRightFront, QtGui.QColor(255,143,15))
-        elif data.getMotorTemperatureTwo() > 40:
+        elif data.getMotorTemperatureTwo() > 0.4*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureRightFront, QtCore.Qt.yellow)
-        elif data.getMotorTemperatureTwo() > 20:    
+        elif data.getMotorTemperatureTwo() > 0.2*self.totalTemperatureDifference:    
             self.changeProgressBarColor(self.motorTemperatureRightFront, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.motorTemperatureRightFront, QtCore.Qt.green)
         
-        if data.getMotorTemperatureThree() > 80: 
+        if data.getMotorTemperatureThree() > 0.8 * self.totalTemperatureDifference: 
             self.changeProgressBarColor(self.motorTemperatureLeftRear, QtCore.Qt.red)
-        elif data.getMotorTemperatureThree() > 60:
+        elif data.getMotorTemperatureThree() > 0.6*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureLeftRear, QtGui.QColor(255,143,15))
-        elif data.getMotorTemperatureThree() > 40:
+        elif data.getMotorTemperatureThree() > 0.4*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureLeftRear, QtCore.Qt.yellow)
-        elif data.getMotorTemperatureThree() > 20:    
+        elif data.getMotorTemperatureThree() > 0.2*self.totalTemperatureDifference:    
             self.changeProgressBarColor(self.motorTemperatureLeftRear, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.motorTemperatureLeftRear, QtCore.Qt.green)
         
-        if data.getMotorTemperatureFour() > 80: 
+        if data.getMotorTemperatureFour() > 0.8 * self.totalTemperatureDifference: 
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.red)
-        elif data.getMotorTemperatureFour() > 60:
+        elif data.getMotorTemperatureFour() > 0.6*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtGui.QColor(255,143,15))
-        elif data.getMotorTemperatureFour() > 40:
+        elif data.getMotorTemperatureFour() > 0.4*self.totalTemperatureDifference:
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.yellow)
-        elif data.getMotorTemperatureFour() > 20:    
+        elif data.getMotorTemperatureFour() > 0.2*self.totalTemperatureDifference:    
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtGui.QColor(226,255,41,255))
         else:
             self.changeProgressBarColor(self.motorTemperatureRightRear, QtCore.Qt.green)
