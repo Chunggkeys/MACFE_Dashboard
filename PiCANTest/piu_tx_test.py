@@ -62,16 +62,13 @@ try:
 		print(count)
 		print(question)
 		
-		message = bus.recv()	# Wait until a message is received.
-		
-		c = '{0:f} {1:x} {2:x} '.format(message.timestamp - prevTime, message.arbitration_id, message.dlc)
-		s=''
-		prevTime = message.timestamp
-		for i in range(message.dlc ):
-			s +=  '{0:x} '.format(message.data[i])
-			
-		print(' {}'.format(c+s))
-		 
+		for message in bus:
+					c = '{0:f} {1:x} {2:x} '.format(message.timestamp - prevTime, message.arbitration_id, message.dlc)
+					s=''
+					prevTime = message.timestamp
+					for i in range(message.dlc ):
+								s +=  '{0:x} '.format(message.data[i])
+					print(' {}'.format(c+s))
 
 	
 except KeyboardInterrupt:
