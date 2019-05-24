@@ -13,7 +13,7 @@ class guiModel:
         self.mTempOne = 0
         self.mTempTwo = 0; self.mTempThree = 0
         self.mTempFour = 0; self.maxPower = 0
-        self.hv = 0; self.lv = 0
+        self.startupStatus = 0
     
     ## Setters for guiModel state variables
     def setSpeed(self,speed):
@@ -48,6 +48,9 @@ class guiModel:
     
     def setMaxPower(self,maxPower):
         self.maxPower = maxPower
+    
+    def setStartupStatus(self, startupStatus):
+        self.startupStatus = startupStatus
     ##
 
     ## Getters for guiModel state variables
@@ -78,11 +81,9 @@ class guiModel:
     def getMaxPower(self):
         return self.maxPower
 	
-    def getHV(self):
-        return self.hv
+    def getStartupStatus(self):
+        return self.startupStatus
 	
-    def getLV(self):
-        return self.lv
     ##
 ##
 
@@ -148,14 +149,8 @@ def setMaxPower(maxPower):
     client.send(data)
     resource.release()
 
-def setHV(hv):
-    data.setHV(hv)
-    resource.acquire()
-    client.send(data)
-    resource.release()
-
-def setLV(lv):
-    data.setLV(lv)
+def setStartupStatus(startupStatus):
+    data.setStartupStatus(startupStatus)
     resource.acquire()
     client.send(data)
     resource.release()

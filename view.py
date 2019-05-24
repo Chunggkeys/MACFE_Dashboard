@@ -87,6 +87,9 @@ class MainWindow(QWidget):
         speedFont = QFont("DS-Digital")
         speedFont.setPointSize(90)
 
+        statusFont = QFont("DS-Digital")
+        statusFont.setPointSize(45)
+
         shutdownFont = QFont("DS-Digital")
         shutdownFont.setPointSize(100)
 
@@ -97,6 +100,11 @@ class MainWindow(QWidget):
         self.speed.setAlignment(Qt.AlignCenter)
         self.speed.setFont(speedFont)
         self.speed.setStyleSheet("color: white")
+
+        self.startupStatus = QLabel("Startup", self)
+        self.startupStatus.setAlignment(Qt.AlignCenter)
+        self.startupStatus.setFont(statusFont)
+        self.startupStatus.setStyleSheet("QLabel {background : red}")
 
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setFixedHeight(progressBarWidthScale*self.batteryTemperature.width())
@@ -153,16 +161,6 @@ class MainWindow(QWidget):
         self.motorTemperatureLabel.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLabel.setStyleSheet("color: white")
 
-        self.highVoltReady = QLabel("HV", self)
-        self.highVoltReady.setFont(labelFont)
-        self.highVoltReady.setAlignment(Qt.AlignCenter)
-        self.highVoltReady.setStyleSheet("color: white")
-        
-        self.lowVoltReady = QLabel("LV", self)
-        self.lowVoltReady.setFont(labelFont)
-        self.lowVoltReady.setAlignment(Qt.AlignCenter)
-        self.lowVoltReady.setStyleSheet("color: white")
-
         self.readyLabel = QLabel("Startup Status", self)
         self.readyLabel.setFont(labelFont)
         self.readyLabel.setAlignment(Qt.AlignCenter)
@@ -196,18 +194,19 @@ class MainWindow(QWidget):
         
         self.progressBarColors(data)
 
-        if data.getHV() == 1:
-            self.highVoltReady.setStyleSheet("QLabel {background-color: green}")
+        if data.getStartupStatus() == 0:
+            self.startupStatus.setStyleSheet("QLabel {background-color : yellow}")
+            self.startupStatus.setText("LOCK")            
+        elif data.getStartupStatus() == 1:
+            self.startupStatus.setStyleSheet("QLabel {background-color : blue}")
+            self.startupStatus.setText("ACC")
+        elif data.getStartupStatus() == 2:
+            self.startupStatus.setStyleSheet("QLabel {background-color : green}")
+            self.startupStatus.setText("ON")
         else:
-            self.highVoltReady.setStyleSheet("QLabel {background-color: black}")
-            self.highVoltReady.setStyleSheet("color: white")
-        
-        if data.getLV() == 1:
-            self.lowVoltReady.setStyleSheet("QLabel {background-color: green}")
-        else:
-            self.lowVoltReady.setStyleSheet("QLabel {background-color: black}")
-            self.lowVoltReady.setStyleSheet("color: white")
-        
+            self.startupStatus.setStyleSheet("QLabel {background-color : red}")
+            self.startupStatus.setText("SHUTDOWN")
+       
         if data.getShutdown() == 1:
             self.systemShutdown()
 
@@ -318,7 +317,6 @@ class MainWindow(QWidget):
 
         self.groupBox = QGroupBox()
         layout = QGridLayout()
-        subLayout = QGridLayout()
         motorLayout = QGridLayout()
         batteryTemperatureLayout = QGridLayout()
         maxPowerAvailableLayout = QGridLayout()
@@ -353,9 +351,7 @@ class MainWindow(QWidget):
                 elif rows == 0 and cols == 9:
                     layout.addWidget(self.readyLabel,rows,cols,1,2)
                 elif rows == 1 and cols == 9:
-                    layout.addLayout(subLayout,rows,cols,3,2)
-                    subLayout.addWidget(self.highVoltReady,0,0)
-                    subLayout.addWidget(self.lowVoltReady,1,0)
+                    layout.addWidget(self.startupStatus,rows,cols,3,2)
                 elif rows == 12 and cols == 8:
                     layout.addWidget(self.speed,rows,cols,2,7)
                 else:
