@@ -85,7 +85,7 @@ class MainWindow(QWidget):
         torqueFont.setPointSize(50)
 
         speedFont = QFont("DS-Digital")
-        speedFont.setPointSize(90)
+        speedFont.setPointSize(110)
 
         statusFont = QFont("DS-Digital")
         statusFont.setPointSize(45)
@@ -94,7 +94,7 @@ class MainWindow(QWidget):
         shutdownFont.setPointSize(100)
 
         batteryLevelFont = QFont("DS-Digital")
-        batteryLevelFont.setPointSize(90)
+        batteryLevelFont.setPointSize(110)
 
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
@@ -104,7 +104,9 @@ class MainWindow(QWidget):
         self.startupStatus = QLabel("Startup", self)
         self.startupStatus.setAlignment(Qt.AlignCenter)
         self.startupStatus.setFont(statusFont)
-        self.startupStatus.setStyleSheet("QLabel {background : red}")
+        self.startupStatus.setStyleSheet("QLabel {background : blue}")
+        self.startupStatus.setStyleSheet("color: white")
+
 
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setFixedHeight(progressBarWidthScale*self.batteryTemperature.width())
@@ -161,7 +163,7 @@ class MainWindow(QWidget):
         self.motorTemperatureLabel.setAlignment(Qt.AlignCenter)
         self.motorTemperatureLabel.setStyleSheet("color: white")
 
-        self.readyLabel = QLabel("Startup Status", self)
+        self.readyLabel = QLabel("Vehicle Status", self)
         self.readyLabel.setFont(labelFont)
         self.readyLabel.setAlignment(Qt.AlignCenter)
         self.readyLabel.setStyleSheet('color: white')

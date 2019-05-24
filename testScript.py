@@ -21,8 +21,5 @@ def changeValues():
     # gm.setShutdown(r.randint(0,2))
     gm.setSpeed(r.randint(1,500))
     ##
-
-    print(a)
-
 changeValues()
 
