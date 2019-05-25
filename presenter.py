@@ -12,8 +12,10 @@ class Presenter(QThread):
     updateSignal = pyqtSignal(object)
     ##
     
-    def __init__(self):
+    def __init__(self, app):
         super().__init__()
+
+        self.app = app
 
         ## Initializes and runs listener, MUST BE INITIALIZED BEFORE CLIENT
         self.address = ('localhost', 6000)
@@ -26,6 +28,7 @@ class Presenter(QThread):
         
         ## Starts listener and emits signal to update GUI when data is received
         while 1:    
+            self.app.processEvents()
             data = self.connection.recv()
             self.updateSignal.emit(data)
             if data.getShutdown() == 1:

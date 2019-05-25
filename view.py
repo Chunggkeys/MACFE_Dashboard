@@ -367,7 +367,7 @@ class MainWindow(QWidget):
 app = QtWidgets.QApplication(sys.argv)
 app.setStyle('Fusion')
 
-p = Presenter()
+p = Presenter(app)
 
 window = MainWindow(p)
 window.showMaximized()
