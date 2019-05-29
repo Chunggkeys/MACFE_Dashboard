@@ -53,7 +53,7 @@ try:
             rightRearMotorTemperature = message.data[3] - 20
             batteryTemperature = message.data[4] - 20
         
-        if int(hex(message.arbritation_id[2:])) == vehicleID:
+        elif int(hex(message.arbritation_id[2:])) == vehicleID:
             maxPower = message.data[0] 
             soc = message.data[1]
             shutdown = message.data[2]
