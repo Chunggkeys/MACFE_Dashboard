@@ -2,7 +2,7 @@ import serial
  
 port = "/dev/ttyS0" #the rpisink uses ttyAMA0 AND serial0 for UART, it DOES NOT USE ttyS0
  
-def parseGPS(data):
+def parseSpeed(data):
 #    print "raw:", data #prints raw data
 
     try:
@@ -20,11 +20,14 @@ def parseGPS(data):
             dirLat = data[4]      #latitude direction N/S
             lon = decode(data[5]) #longitute
             dirLon = data[6]      #longitude direction E/W
-            speed = data[7]       #Speed in knots
+            tempSpeed = data[7]       #Speed in knots
         
+            speed = tempSpeed * 1.852
             print ("latitude : %s(%s), longitude : %s(%s), speed : %s," %  (lat,dirLat,lon,dirLon,speed))
     except UnicodeDecodeError:
         print("Exception")
+    
+    return speed
     #print(type(data[0:6]))
  
 def decode(coord):
@@ -42,4 +45,4 @@ ser = serial.Serial(port, baudrate = 57600, timeout = 0.5)
 while True:
    data = ser.readline()
    #print(data)
-   parseGPS(data)
+   #parseGPS(data)

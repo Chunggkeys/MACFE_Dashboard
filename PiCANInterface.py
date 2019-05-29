@@ -17,7 +17,7 @@ import can
 import time
 import guiModel as gm
 import os
-
+import serial
 
 print('\n\rCAN Rx test')
 print('Bring up CAN0....')
@@ -25,6 +25,9 @@ os.system("sudo /sbin/ip link set can0 up type can bitrate 500000")
 time.sleep(0.1)
 temperatureID = 502; vehicleID = 503
 filter = [{"can_id": 0x502, "can_mask": 0x7FF, "extended": False},{"can_id": 0x503, "can_mask": 0x7FF, "extended": False}]
+
+port = "/dev/ttyS0"
+ser = serial.Serial(port, baudrate=57600, timeout=0.5)
 
 try:
 	bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
@@ -36,10 +39,30 @@ except OSError:
 print('Ready')
 prevTime = 0;
 
+def parseSpeed(data):
+    try:
+        data = data.decode().split(",")
+        if data[0] == "$GPRMC":
+            if data[2] == 'V':
+                print("No satellite")
+                return
+            
+            print("Parsing Speed value")
+
+            tempSpeed = data[7]
+            speed = tempSpeed * 1.852
+    
+    except UnicodeDecodeError:
+        print("Exception")
+    
+    return speed
+
 try:
     while True:
         ## gpsparse
-        speedMsg = can.Message(arbritation_id=0x503,extended_id=False) ##data goes in here
+        data = ser.readline()
+        sendSpeed = parseSpeed(data)
+        speedMsg = can.Message(arbritation_id=0x503,data=sendSpeed,extended_id=False) ##Need to verify data parameter
         message = bus.recv()	# Wait until a message is received.
 		
         c = '{0:f} {1:x} {2:x} '.format(message.timestamp - prevTime, message.arbitration_id, message.dlc)
