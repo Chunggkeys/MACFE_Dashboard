@@ -38,6 +38,8 @@ prevTime = 0;
 
 try:
     while True:
+        ## gpsparse
+        speedMsg = can.Message(arbritation_id=0x503,extended_id=False)
         message = bus.recv()	# Wait until a message is received.
 		
         c = '{0:f} {1:x} {2:x} '.format(message.timestamp - prevTime, message.arbitration_id, message.dlc)
