@@ -1,5 +1,5 @@
-python3 view.py &
+usr/bin/python3 /home/pi/Desktop/Git/Pi3/view.py &
 
-sleep 3
+sleep 15
 
-python3 PiCANInterface.py &
+usr/bin/python3 /home/pi/Desktop/Git/Pi3/PiCANInterface.py &

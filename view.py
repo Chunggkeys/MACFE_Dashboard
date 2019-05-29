@@ -85,16 +85,16 @@ class MainWindow(QWidget):
         torqueFont.setPointSize(50)
 
         speedFont = QFont("DS-Digital")
-        speedFont.setPointSize(110)
+        speedFont.setPointSize(90)
 
         statusFont = QFont("DS-Digital")
-        statusFont.setPointSize(45)
+        statusFont.setPointSize(30)
 
         shutdownFont = QFont("DS-Digital")
         shutdownFont.setPointSize(100)
 
         batteryLevelFont = QFont("DS-Digital")
-        batteryLevelFont.setPointSize(110)
+        batteryLevelFont.setPointSize(90)
 
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
