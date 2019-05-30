@@ -54,6 +54,7 @@ def parseSpeed(data):
     
     except UnicodeDecodeError:
         print("Exception")
+        return
     
     return speed
 
@@ -61,8 +62,10 @@ try:
     while True:
         ## gpsparse
         data = ser.readline()
-        sendSpeed = parseSpeed(data)
-        speedMsg = can.Message(arbritation_id=0x503,data=sendSpeed,extended_id=False) ##Need to verify data parameter
+        sendSpeed = bytearray([parseSpeed(data)])
+        speedMsg = can.Message(channel='can0',arbritation_id=0x503,data=sendSpeed,extended_id=False) ##Need to verify data parameter
+        
+        bus.send(speedMsg)
         message = bus.recv()	# Wait until a message is received.
 		
         c = '{0:f} {1:x} {2:x} '.format(message.timestamp - prevTime, message.arbitration_id, message.dlc)

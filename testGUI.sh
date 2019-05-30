@@ -1,5 +1,5 @@
-python3 view.py &
+usr/bin/python3 /home/pi/Desktop/Git/Pi/view.py &
 
-sleep 3
+sleep 20
 
-python3 testScript.py &
+usr/bin/python3 /home/pi/Desktop/Git/Pi/testScript.py &
