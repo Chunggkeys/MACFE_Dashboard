@@ -212,7 +212,14 @@ class MainWindow(QWidget):
         if data.getShutdown() == 1:
             self.systemShutdown()
 
-        self.changeTextAndValue(data)
+        self.batteryLevel.setText("SOC: " + data.getBatteryLevel() + "%")
+        self.speed.setText(data.getSpeed() + "<sub>km/h</sub>")
+        self.batteryTemperature.setValue(data.getBatteryTemperature())
+        self.motorTemperatureLeftFront.setValue(data.getMotorTemperatureOne())
+        self.motorTemperatureRightFront.setValue(data.getMotorTemperatureTwo())
+        self.motorTemperatureLeftRear.setValue(data.getMotorTemperatureThree())
+        self.motorTemperatureRightRear.setValue(data.getMotorTemperatureFour())
+        self.maxPowerAvailable.setValue(data.getMaxPower())
     ##
 
     ## Opens Error GUI
@@ -302,15 +309,15 @@ class MainWindow(QWidget):
     ##
 
     ## For labels that require the showing of values, this method updates labels
-    def changeTextAndValue(self, data):
-        self.batteryLevel.setText("SOC: " + data.getBatteryLevel() + "%")
-        self.speed.setText(data.getSpeed() + "<sub>km/h</sub>")
-        self.batteryTemperature.setValue(data.getBatteryTemperature())
-        self.motorTemperatureLeftFront.setValue(data.getMotorTemperatureOne())
-        self.motorTemperatureRightFront.setValue(data.getMotorTemperatureTwo())
-        self.motorTemperatureLeftRear.setValue(data.getMotorTemperatureThree())
-        self.motorTemperatureRightRear.setValue(data.getMotorTemperatureFour())
-        self.maxPowerAvailable.setValue(data.getMaxPower())
+    # def changeTextAndValue(self, data):
+    #     self.batteryLevel.setText("SOC: " + data.getBatteryLevel() + "%")
+    #     self.speed.setText(data.getSpeed() + "<sub>km/h</sub>")
+    #     self.batteryTemperature.setValue(data.getBatteryTemperature())
+    #     self.motorTemperatureLeftFront.setValue(data.getMotorTemperatureOne())
+    #     self.motorTemperatureRightFront.setValue(data.getMotorTemperatureTwo())
+    #     self.motorTemperatureLeftRear.setValue(data.getMotorTemperatureThree())
+    #     self.motorTemperatureRightRear.setValue(data.getMotorTemperatureFour())
+    #     self.maxPowerAvailable.setValue(data.getMaxPower())
     ##
 
     ## Defines the grid of the UI and inserts widgets onto coordinates
