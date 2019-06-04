@@ -45,9 +45,7 @@ class ShutdownWindow(QWidget):
         
 class MainWindow(QWidget): 
 
-    ## Signal definition
-    buttonClicked = pyqtSignal()
-    ##
+    logoFadeDone = pyqtSignal()
 
     def __init__(self, presenter):
         ## Initializes QWidget class as parent
@@ -96,6 +94,12 @@ class MainWindow(QWidget):
         batteryLevelFont = QFont("DS-Digital")
         batteryLevelFont.setPointSize(110)
 
+        self.logo = QPixmap("Examples/MFELogoBlackBackground.png")
+
+        self.logoEnclosure = QLabel(self)
+        self.logoEnclosure.setAlignment(Qt.AlignCenter)
+        self.logoEnclosure.setPixmap(self.logo)
+
         self.speed = QLabel("Speed", self)
         self.speed.setAlignment(Qt.AlignCenter)
         self.speed.setFont(speedFont)
@@ -106,7 +110,6 @@ class MainWindow(QWidget):
         self.startupStatus.setFont(statusFont)
         self.startupStatus.setStyleSheet("QLabel {background : blue}")
         self.startupStatus.setStyleSheet("color: white")
-
 
         self.batteryTemperature = QProgressBar(self)
         self.batteryTemperature.setFixedHeight(progressBarWidthScale*self.batteryTemperature.width())
@@ -190,6 +193,7 @@ class MainWindow(QWidget):
         self.setLayout(box)
         ##
     
+    # def createLogoGrid(self):
 
     ## Widget behavior based on passed values
     def processValues(self, data):
