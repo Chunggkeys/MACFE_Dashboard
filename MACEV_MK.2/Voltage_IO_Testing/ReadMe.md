@@ -21,7 +21,7 @@ Module Version: [1.0]
 
 ## Detailed Description of Functions 
 - **voltage_test()**:
-    The function recieves two arguments (voltage and pwm pin). The voltage is sent as an output to the pin that was inputed by the user. The voltage given is converted into a duty cycle percentage using the formula $$\left(\frac {voltage\:given}{MAX\:Voltage}\right)\times100$$ and then the duty cycle of the pwm is changed to the percentage calculated. 
+    The function recieves two arguments (voltage and pwm pin). The voltage is sent as an output to the pin that was inputed by the user. The voltage given is converted into a duty cycle percentage using the formula (Voltage Given/Max Voltage)*100 and then the duty cycle of the pwm is changed to the percentage calculated. 
     Then, the user can either change the voltage or then can go back to the main module 
     
 - **push_voltage**:
