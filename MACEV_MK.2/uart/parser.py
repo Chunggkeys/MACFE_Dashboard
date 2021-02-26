@@ -27,19 +27,19 @@ Supported message ids:
 def try_int(string) -> int:
     try:
         return int(string)
-    except Exception:
+    except ValueError:
         return string
 
 def try_float(string) -> float:
     try:
         return float(string)
-    except Exception:
+    except ValueError:
         return string
 
 def try_hex(string) -> hex:
     try:
         return hex(int(string, 16))
-    except Exception:
+    except ValueError:
         return string
 
 class Parser:
@@ -78,8 +78,8 @@ class Parser:
         try:
             if Parser.checksum(input) != try_hex(input.split('*')[1]):
                 raise Exception('Checksum is incorrect!')
-        except Exception:
-            raise Exception('Cannot verify checksum!')
+        except Exception as error:
+            raise Exception('Cannot verify checksum!') from error
 
         if input[1:6] == 'GPGGA':
             return Parser.parseGPGGA(input)
@@ -178,7 +178,7 @@ class Parser:
         message's number (current) and the number of satellites (satellites).
 
         Only the last message might have less than 4 satellites.
-        
+
         Note: Regardless the message number, channels on every message start from 1.
         '''
         remaining = output['satellites'] - ((output['current'] - 1) * 4)
