@@ -9,8 +9,9 @@ This file is a simple wrapper of the Python library 'pyserial'.
 https://pyserial.readthedocs.io/en/latest/index.html
 '''
 
-import serial
+import sys
 import time
+import serial
 
 class UART:
     ser: serial.Serial = None
@@ -30,8 +31,8 @@ class UART:
     ):
         try:
             self.ser = serial.Serial(port, baudrate, bytesize, parity, stopbits, timeout)
-        except Exception as error:
-            exit(error)
+        except serial.SerialException as error:
+            sys.exit(error)
 
         self.ser.reset_output_buffer()
         self.ser.reset_input_buffer()
