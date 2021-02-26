@@ -39,7 +39,7 @@ def addChecksum(string, checksum) -> str:
 
     if len(f'{checksum}') < 2:
         return f'{string}*0{checksum}'
-    
+
     return f'{string}*{checksum}'
 
 def printNumber(number: int, length: int) -> str:
@@ -57,7 +57,7 @@ def checkNone(value):
     '''
     If a value is none, simply returns empty string.
     '''
-    if value != None:
+    if value is not None:
         return value
     return ''
 
@@ -82,7 +82,7 @@ class GPGGA:
     units2: 'M' or 'I'
     age: int
     station_id: int
-    
+
     def __init__(
         self,
         time: str,
@@ -367,7 +367,7 @@ class GPVTG:
         self.speed_knots = speed_knots
         self.speed_kph = speed_kph
         self.mode = mode
-        
+
         self.string = self.stringify()
         self.checksum = calcChecksum(self.string)
 
