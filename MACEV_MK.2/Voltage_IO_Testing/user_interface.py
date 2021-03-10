@@ -49,7 +49,7 @@ def main():
             while pin != 12 and pin != 13:
                 try:
                     pin = int(
-                        input("Enter the pwn pin (23 or 26) ")
+                        input("Enter the pwn pin (12 or 13) ")
                     )  # gets the pwm pin
                 except ValueError:
                     print("Please enter a valid pwm pin number")
@@ -75,7 +75,7 @@ def main():
 
             while pin_button != 12 and pin_button != 13:  # pwm pins on PI 3B
                 try:
-                    pin_button = int(input("Enter the pwm pin (23 or 26) "))
+                    pin_button = int(input("Enter the pwm pin (12 or 13) "))
                 except ValueError:
                     print("Please enter a valid pwm pin number ")
 
