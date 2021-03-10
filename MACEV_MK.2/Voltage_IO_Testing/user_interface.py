@@ -26,7 +26,7 @@ def main():
         )
 
         option = 9
-        while option > 6 or option < 1:
+        while option > 6 or option < 1: #exception handling
             try:
                 option = int(
                     input("Enter the option number ")
