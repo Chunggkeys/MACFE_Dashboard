@@ -2,22 +2,23 @@ from pynput import keyboard
 import time
 import RPi.GPIO as IO
 import matplotlib.pyplot as plt
+#imports the libraries 
 
-
-break_program = False
+break_program = False #used by the user to end a function
 
 IO.setwarnings(False)  # ignores the warnings
 IO.setmode(IO.BCM)  # uses the pins on the Raspberry PI
 
 
-def voltage_test(voltage, pwm_pin):
+    
+def voltage_test(voltage, pwm_pin): 
     print(
         "----------------------------------------------------------------------------"
     )
     # fake sensor outputs at various value
     IO.setup(pwm_pin, IO.OUT)  # sets the pin given as OUTPUT
-    output = IO.PWM(pwm_pin, 100)
-    output.start(0)
+    output=IO.PWM(pwm_pin,100) #100% frequency to avoid flickering 
+    output.start(0) #starts the GPIO pin
 
     MAX_VOLTAGE = 5  # Max Voltage of PI
     duty_cycle = (voltage / MAX_VOLTAGE) * 100  # Calculation for the Duty Cycle
@@ -33,31 +34,27 @@ def voltage_test(voltage, pwm_pin):
     else:  # for invalid inputs
         print("Invalid Input")
 
-    run = True
-    while run == True:
+    run = True 
+    while run == True: #runs until the user wants to go back 
         print(
             "----------------------------------------------------------------------------"
         )
         print("1. Change the voltage\n2.Stop and Go back to the main module")
-        option = -1
-        while option != 1 and option != 2:
-            try:
-                option = int(
-                    input("Enter the option (1 or 2) ")
-                )  # asks the user if they want to change the voltage
+        option=-1
+        while (option!=1 and option!=2):
+            try: #handles the exceptions 
+                option = int(input("Enter the option (1 or 2) "))  # asks the user if they want to change the voltage
             except ValueError:
                 print("Please enter a valid option")
 
         if option == 1:
-            voltage = -2.1  # place holder
-            while voltage < 0 or voltage > 5:
-                try:
-                    voltage = float(
-                        input("Enter the new voltage ")
-                    )  # gets the new voltage
+            voltage=-2.1 #place holder
+            while(voltage<0 or voltage>5):
+                try: #handles the exceptions 
+                    voltage = float(input("Enter the new voltage ")) #gets the new voltage
                 except ValueError:
                     print("Please enter a valid voltage value (between 0 and 5) ")
-
+                    
             duty_cycle = (voltage / MAX_VOLTAGE) * 100  # calculates the new duty cycle
             output.ChangeDutyCycle(
                 duty_cycle
@@ -76,12 +73,12 @@ def push_voltage(voltage, pwm_pin, button):
     print(
         "----------------------------------------------------------------------------"
     )
-
+            
     IO.setup(pwm_pin, IO.OUT)  # sets the pin given as OUTPUT
     IO.setup(button, IO.IN, pull_up_down=IO.PUD_DOWN)  # sets the push button as INPUT
-    output_button = IO.PWM(pwm_pin, 100)
+    output_button=IO.PWM(pwm_pin,100) #100% frequency 
     output_button.start(0)
-
+    
     MAX_VOLTAGE = 5  # Max Voltage of PI
     duty_cycle = (voltage / MAX_VOLTAGE) * 100  # Calculation for the Duty Cycle
 
@@ -96,31 +93,26 @@ def push_voltage(voltage, pwm_pin, button):
             print("Changing the duty cycle to ", duty_cycle, "%")
             run = True
 
-        if run == True:
-            print(
-            "----------------------------------------------------------------------------"
-            )  # just for organizing
+        if run == True: #runs until the user wants to go back to the interface 
             print("1. Change the voltage\n2. Turn off and Go back to the main module")
-            option = -1
-            while option != 1 and option != 2:
+            option=-1
+            while(option!=1 and option!=2): #gets the user option
                 try:
-                    option = int(
-                        input("Enter the option (1 or 2) ")
-                    )  # asks the user if they want to change the voltage
+                    option = int(input("Enter the option (1 or 2) "))  # asks the user if they want to change the voltage
                 except ValueError:
                     print("Please enter a valid option")
 
-            if option == 1:
-                voltage = -1.1
-                while voltage < 0 or voltage > 5:
-                    try:
+            if option == 1: #gets the new voltage 
+                voltage=-1.1
+                while(voltage<0 or voltage>5):
+                    try: #handles exceptions 
                         voltage = float(input("Enter the new voltage "))
                     except ValueError:
                         print("Please enter a valid voltage value")
-                duty_cycle = (voltage / MAX_VOLTAGE) * 100
+                duty_cycle = (voltage / MAX_VOLTAGE) * 100 #bew duty cycle
                 run = False
 
-            elif option == 2:
+            elif option == 2: #stop the function
                 output_button.stop()
                 print("Returning to the main module")
 
@@ -139,11 +131,9 @@ def periodic_signal(pin, period):
     run = True  # used to run the program until key is pressed
 
     global break_program  # used to stop the program
-    break_program = False
+    break_program=False
     print("PRESS ESC TO END THE FUNCTION")
-    print(
-        "----------------------------------------------------------------------------"
-    )
+    print("----------------------------------------------------------------------------")
 
     with keyboard.Listener(on_press=on_press) as listener:  # works until f11 is pressed
         while break_program == False:
@@ -164,16 +154,7 @@ def periodic_signal(pin, period):
     return
 
 
-def on_press(key):  # function to detect key press
-    print(
-        "----------------------------------------------------------------------------"
-    )
-    global break_program
-    print(key)
-    if key == keyboard.Key.esc:  # checks if the Delete key is pressed
-        print("esc pressed")
-        break_program = True  # stops the program
-        return False
+
 
 
 def monitor(pins, debounce):
@@ -199,16 +180,14 @@ def monitor(pins, debounce):
         ):  # if the user wants to debounce, it's done using another function
             debounces(pins[i])
         input_value[i] = IO.input(pins[i])
-        file.write("%s %s %s\n" % (0, pins[i], input_value[i]))
+        file.write("%s %s %s\n" % (0, pins[i], input_value[i])) #writes the starting value to file
 
     # used to monitor until signal comes
     compare_value = [None] * length  # used for determining the signal
     global break_program
-    break_program = False
+    break_program=False
     print("PRESS ESC TO END THE FUNCTION")
-    print(
-        "----------------------------------------------------------------------------"
-    )
+    print("----------------------------------------------------------------------------")
 
     with keyboard.Listener(on_press=on_press) as listener:
 
@@ -253,34 +232,20 @@ def monitor(pins, debounce):
                     ]  # the latest state of the pin is stored in input_value
 
                     file.write(
-                        "%s %s %s\n" % (t1, pins[i], compare_value[i])
+                        "%s %s %s\n" % (round(t1,2), pins[i], compare_value[i])
                     )  # writes the data to the file
+
 
         listener.join()
 
     # compare the outputs of microcontroller
     for i in range(length):
         tfinal = time.time() - t0
-        file.write("%s %s %s\n" % (tfinal, pins[i], compare_value[i]))
+        file.write("%s %s %s\n" % (round (tfinal,2), pins[i], compare_value[i]))
     file.close()
     return
 
 
-def debounces(pin):  # Used for debouncing the pin
-    # gets the state of the pin and waits for it be to be stable for 50ms
-
-    cur_value = IO.input(pin)
-    active = 0
-    while active < 50:
-        if IO.input(pin) == cur_value:
-            active += 1
-        else:
-            active = 0
-            cur_value = IO.input(pin)
-            time.sleep(0.1)
-        time.sleep(0.001)
-    # have to be stable for 50ms
-    return
 
 
 def timing_diagram(used_pins):
@@ -337,11 +302,41 @@ def timing_diagram(used_pins):
         title = "Logic Analyzer for Pin: " + str(used_pins[i])  # title based on the pin
         ax.title.set_text(title)
         ax.set_xlabel("Time elsapsed", fontsize=15)
-        ax.set_ylabel("Voltage", fontsize=18)
-
-        plt.savefig("Pin {}".format(used_pins[i]))
+        ax.set_ylabel("Voltage", fontsize=15)
+    
+        plt.savefig('Pin {}'.format(used_pins[i]))
     plt.show()  # shows the graph on the screen
+
 
     # captures the diagnostic data
     file.close()
     return
+
+def on_press(key):  # function to detect key press
+    print(
+        "----------------------------------------------------------------------------"
+    )
+    global break_program
+    print(key)
+    if key == keyboard.Key.esc:  # checks if the escape key is pressed
+        print("esc pressed")
+        break_program = True  # stops the program
+        return False
+
+def debounces(pin):  # Used for debouncing the pin
+    # gets the state of the pin and waits for it be to be stable for 50ms
+
+    cur_value = IO.input(pin)
+    active = 0
+    while active < 50: #change this value to adjust debounce time in milliseconds
+        if IO.input(pin) == cur_value:
+            active += 1
+        else:
+            active = 0
+            cur_value = IO.input(pin)
+            time.sleep(0.1)
+        time.sleep(0.001)
+    # have to be stable for 50ms
+    return
+
+
