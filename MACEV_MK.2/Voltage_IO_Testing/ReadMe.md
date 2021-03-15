@@ -17,8 +17,9 @@ Module Version: [1.2]
 - **periodic_signal()** : is used to schedule a periodic signal output every t milliseconds
 - **monitor()**: is used to debounce and read input voltages for a set of specified pins
 - **timing_diagram():** used to read and record voltage inputs from a pin into a timing diagram
--**debounce():** used by the monitor funtion to debounce the pins when needed 
-
+- **debounces():** used by the monitor funtion to debounce the pins when needed 
+- **on_press():** used by monitor() and periodic_signal() functions to stop the callled function and go back user interface
+ 
 ## Detailed Description of Functions 
 - **voltage_test()**:
     The function receives two arguments (voltage and pwm pin). The voltage is sent as an output to the pin that was inputted by the user. The voltage given is converted into a duty cycle percentage using the formula (Voltage Given/Max Voltage)*100 and then the duty cycle of the pwm is changed to the percentage calculated. 
@@ -47,8 +48,11 @@ Module Version: [1.2]
 - **timing_diagram()**:
     This function is related to the monitoring function. This function takes the data that the monitoring function created and turns it into graphs for every pin used. 
 
-- **debounce()**:
+- **debounces()**:
     This function is called from within the monitor function if debouincing is turned on. The function is given a set of pins and it waits for the pins to be stable for **50ms** before inputting their state. **50ms** value can be changed according to user preference. 
+    
+- **on_pess()**
+    This function is called when the user decides to end the monitor() or periodic_signal() functions. When the esc key is pressed by the user, the called function is stopped and the user is sent back to the user interface
     
 
 ## Installation
