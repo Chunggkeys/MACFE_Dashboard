@@ -7,7 +7,7 @@
 * [User Manual](https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-mb1137-stmicroelectronics.pdf)
 
 ## Build status
-Module Version: [1.0]
+Module Version: [1.2]
 
 
 ## Module Brief Description
@@ -17,6 +17,7 @@ Module Version: [1.0]
 - **periodic_signal()** : is used to schedule a periodic signal output every t milliseconds
 - **monitor()**: is used to debounce and read input voltages for a set of specified pins
 - **timing_diagram():** used to read and record voltage inputs from a pin into a timing diagram
+-**debounce():** used by the monitor funtion to debounce the pins when needed 
 
 ## Detailed Description of Functions 
 - **voltage_test()**:
@@ -30,7 +31,7 @@ Module Version: [1.0]
 - **periodic_signal()**:
     This  function receives two arguments, pin and period. The pin is used as an output where the signal will be going. The period is the time between every signal. The function continues to run until f11 is pressed 
         
-    **Important: Click f11 when you want to stop this function and go back to main module**
+    **Important: Click esc when you want to stop this function and go back to main module**
     
     **Important: There is a variable called signal inside the function, it's basically how long the signal is going to be (pin=HIGH). As default, it's set to 1 second but can be changed directly from the variable**
         
@@ -39,15 +40,25 @@ Module Version: [1.0]
     The function creates a log of the signals monitored and writes them to a file in an organized manner to be used later. 
     The function continues to run until the user ends it 
     
-    **Important: Click f11 when you want to stop this function and go back to main module**
+    **Important: Click esc when you want to stop this function and go back to main module**
     
     **Important: Everytime a signal is detected, a LED is flashed. The default pin for this LED is GPIO 25 but can be changed from the variable**
     
 - **timing_diagram()**:
     This function is related to the monitoring function. This function takes the data that the monitoring function created and turns it into graphs for every pin used. 
+
+- **debounce()**:
+    This function is called from within the monitor function if debouincing is turned on. The function is given a set of pins and it waits for the pins to be stable for **50ms** before inputting their state. **50ms** value can be changed according to user preference. 
     
 
 ## Installation
+### Files Breakdown
+[voltage_io.py](voltage_io.py) contains all the functions that are going to be used by the module. The detailed descriptions of these functions written above. 
+[user_interface.py](user_interface.py) provides the user interface for using the module. The file allows the user to access all the functions and test them by inputting the values that are asked on the screen 
+
+### Testing 
+Open the [user_interface.py](user_interface.py) file and run it on either PI terminal or in VNC viewer. The interface provides instructions on the screen when the user runs it 
+
 ### Environment 
 To test the module, you need to remotely connect your Raspberry PI to your coomputer. A recomennded software is VNC Viewer. It allows the user to connect the PI to their computer and execute the code. Download link is given below 
 [**VNC Viewer**](https://www.realvnc.com/en/connect/download/viewer/)
@@ -63,7 +74,7 @@ To run the module, few additional libraries are required that might not be insta
 - **Time is already installed with python**
 
 ### Wiring 
-There are two constraints for wiring. The LED pin used in the monitoring function is set to GPIO 25 but can be changed by the user. The voltage_test() and push_voltage() requires pwm pins so the user can only use GPIO 23, GPIO 26, or GPIO 1
+There are two constraints for wiring. The LED pin used in the monitoring function is set to GPIO 25 but can be changed by the user. The voltage_test() and push_voltage() requires pwm pins so the user can only use pins GPIO 23 and GPIO 26 on Raspberry Pi 3B. If using Raspberry Pi 4, the pwm pins should be changed to GPIO 12 and GPIO 13 
 
 [Pin Layout for Pi 3B](https://pi4j.com/1.2/images/j8header-3b.png)
 ## Authors 
