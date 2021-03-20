@@ -64,7 +64,7 @@ Module Version: [1.2]
 Open the [user_interface.py](user_interface.py) file and run it on either PI terminal or in VNC viewer. The interface provides instructions on the screen when the user runs it 
 
 ### Environment 
-To test the module, you need to remotely connect your Raspberry PI to your computer. A recomended software is VNC Viewer. It allows the user to connect the PI to their computer and execute the code. Download link is given below 
+To test the module, you need to remotely connect your Raspberry PI to your computer. A recommended software is VNC Viewer. It allows the user to connect the PI to their computer and execute the code. Download link is given below 
 [**VNC Viewer**](https://www.realvnc.com/en/connect/download/viewer/)
 [**Tutorial**](https://www.youtube.com/watch?v=NWBmYnNvN3A)
 
