@@ -51,7 +51,7 @@ Module Version: [1.2]
 - **debounces()**:
     This function is called from within the monitor function if debouincing is turned on. The function is given a set of pins and it waits for the pins to be stable for **50ms** before inputting their state. **50ms** value can be changed according to user preference. 
     
-- **on_pess()**
+- **on_press()**
     This function is called when the user decides to end the monitor() or periodic_signal() functions. When the esc key is pressed by the user, the called function is stopped and the user is sent back to the user interface
     
 
