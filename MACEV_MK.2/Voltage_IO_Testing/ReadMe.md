@@ -17,8 +17,8 @@ Module Version: [1.2]
 - **periodic_signal()** : is used to schedule a periodic signal output every t milliseconds
 - **monitor()**: is used to debounce and read input voltages for a set of specified pins
 - **timing_diagram():** used to read and record voltage inputs from a pin into a timing diagram
-- **debounces():** used by the monitor funtion to debounce the pins when needed 
-- **on_press():** used by monitor() and periodic_signal() functions to stop the callled function and go back user interface
+- **debounces():** used by the monitor function to debounce the pins when needed 
+- **on_press():** used by monitor() and periodic_signal() functions to stop the called function and go back user interface
  
 ## Detailed Description of Functions 
 - **voltage_test()**:
@@ -49,7 +49,7 @@ Module Version: [1.2]
     This function is related to the monitoring function. This function takes the data that the monitoring function created and turns it into graphs for every pin used. 
 
 - **debounces()**:
-    This function is called from within the monitor function if debouincing is turned on. The function is given a set of pins and it waits for the pins to be stable for **50ms** before inputting their state. **50ms** value can be changed according to user preference. 
+    This function is called from within the monitor function if debouncing is turned on. The function is given a set of pins and it waits for the pins to be stable for **50ms** before inputting their state. **50ms** value can be changed according to user preference. 
     
 - **on_press()**
     This function is called when the user decides to end the monitor() or periodic_signal() functions. When the esc key is pressed by the user, the called function is stopped and the user is sent back to the user interface
@@ -64,7 +64,7 @@ Module Version: [1.2]
 Open the [user_interface.py](user_interface.py) file and run it on either PI terminal or in VNC viewer. The interface provides instructions on the screen when the user runs it 
 
 ### Environment 
-To test the module, you need to remotely connect your Raspberry PI to your coomputer. A recomennded software is VNC Viewer. It allows the user to connect the PI to their computer and execute the code. Download link is given below 
+To test the module, you need to remotely connect your Raspberry PI to your computer. A recomended software is VNC Viewer. It allows the user to connect the PI to their computer and execute the code. Download link is given below 
 [**VNC Viewer**](https://www.realvnc.com/en/connect/download/viewer/)
 [**Tutorial**](https://www.youtube.com/watch?v=NWBmYnNvN3A)
 
