@@ -55,5 +55,6 @@ class Tester:
         for string in self.tests:
             self.uart.write(string)
 
-tester = Tester()
-tester.test()
+if __name__ == "__main__":
+    tester = Tester()
+    tester.test()
