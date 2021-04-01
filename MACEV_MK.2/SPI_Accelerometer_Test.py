@@ -1,7 +1,7 @@
 import spidev
 import time
 
-class Accelerometer:
+class AccelerometerSPI:
     gravity = 9.80665
     scalefactor = 0
 
@@ -121,5 +121,6 @@ class Accelerometer:
         print("Closing")
 
 
-#mpu = Accelerometer('9250', 2)
-#mpu.Accelerometer_Data(60)
+if __name__ == "__main__":
+    mpu = AccelerometerSPI('9250', 2)
+    mpu.Accelerometer_Data(60)

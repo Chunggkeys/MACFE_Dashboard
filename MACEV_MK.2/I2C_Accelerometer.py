@@ -1,7 +1,7 @@
 import smbus
 import time
 
-class Accelerometer:
+class AccelerometerI2C:
     
     GRAVITY = 9.80665
     
@@ -135,9 +135,7 @@ class Accelerometer:
             print(self.getAccelerometerData())
         print("\n--------------------------------")
         print("Closing")
-        
-mpu = Accelerometer(0x68,2 )
-mpu.Accelerometer_Data(60)
 
-
-         
+if __name__ == "__main__":
+    mpu = AccelerometerI2C(0x68,2 )
+    mpu.Accelerometer_Data(60)
